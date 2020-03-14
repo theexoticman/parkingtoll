@@ -1,0 +1,9 @@
+title Release Slot Flow
+
+
+ParkingController->Parking: releaseSlot(SlotId)
+Parking -> Slot: freeSlot()
+Slot -> Parking:Slot
+Parking-> Parking:add Slot to list of free slots
+Parking-> Parking:remove Slot from list of occupied
+Parking-> ParkingController:Slot

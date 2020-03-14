@@ -1,0 +1,17 @@
+title Find Slot Flow
+
+
+ParkingController->Parking: getFreeSlot(CarType)
+opt for slot in freeSlotList
+Parking -> Slot: isFree(CarType)
+
+alt Slot available
+Slot -> Parking:true
+Parking-> ParkingController:Slot
+end 
+
+alt No slot available
+Slot -> Parking:false
+Parking-> ParkingController:empty Slot
+end 
+end
