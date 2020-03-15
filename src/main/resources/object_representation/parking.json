@@ -1,0 +1,18 @@
+{
+  "parkingId": 1,
+  "policyId": 1,
+  "slots": [
+    {
+      "slot": {
+        "id": 1,
+        "type":"gasoline"
+      }
+    },
+    {
+      "slot": {
+        "id": 1,
+        "type":"gasoline"
+      }
+    }
+  ],
+}

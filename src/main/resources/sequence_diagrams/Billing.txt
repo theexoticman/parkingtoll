@@ -1,0 +1,8 @@
+title Billing Flow
+
+
+ParkingController->Parking: getFare(SlotId)
+Parking->Slot: getSlotInfo()
+Parking->Policy: getPrice(SlotInfo)
+Policy->Parking: price
+Parking->ParkingController: Price
