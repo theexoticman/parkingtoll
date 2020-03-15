@@ -11,7 +11,6 @@ public class Car {
 	}
 
 	public CarType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.type;
 	}
 }
