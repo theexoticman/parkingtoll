@@ -1,10 +1,11 @@
 package parkingtoll;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import parkingtoll.vehicules.Car;
 
 /**
  * A Parking Toll is a representation of a parking with a list of slots. Slots
@@ -39,9 +40,9 @@ public class ParkingToll implements PrincingPolicy {
 	 * @throws SlotOccupiedException
 	 */
 	public Slot bookSlot(Car newCar) throws SlotOccupiedException {
-		CarType type = newCar.getType();
+		String type = newCar.getType();
 		for (Slot slot : this.getSlots()) {
-			if ((type == slot.getType()) && slot.isFree()) {
+			if ((type.equals(slot.getType())) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
 				return slot;

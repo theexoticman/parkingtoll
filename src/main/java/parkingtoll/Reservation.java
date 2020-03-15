@@ -1,6 +1,6 @@
 package parkingtoll;
 
-import java.util.Date;
+import parkingtoll.vehicules.Car;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.

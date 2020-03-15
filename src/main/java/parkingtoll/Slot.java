@@ -1,5 +1,7 @@
 package parkingtoll;
 
+import parkingtoll.vehicules.Car;
+
 /**
  * Slot is a class that represents a slot in the parking. It can only used by
  * one car at a time. A slot it reserved to a type of car. A car from another
@@ -11,7 +13,7 @@ package parkingtoll;
 public class Slot {
 
 	private Integer location;
-	private CarType type;
+	private String type;
 	private Car car;
 
 	/**
@@ -20,7 +22,7 @@ public class Slot {
 	 * @param slotId, slot identification.
 	 * @param type,   associated to a car type.
 	 */
-	public Slot(Integer location, CarType type) {
+	public Slot(Integer location, String type) {
 		this.location = location;
 		this.type = type;
 	}
@@ -57,7 +59,7 @@ public class Slot {
 	/**
 	 * Slot Type getter @return, slot type
 	 */
-	public CarType getType() {
+	public String getType() {
 		return this.type;
 	}
 
