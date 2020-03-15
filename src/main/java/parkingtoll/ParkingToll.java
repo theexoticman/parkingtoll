@@ -27,7 +27,7 @@ public class ParkingToll {
 		for (Slot slot : this.getSlots()) {
 			if ((type == slot.getType()) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getId(), type);
-				slot.book();
+				slot.setIsFree(false);
 				return slot;
 			}
 		}
@@ -35,7 +35,23 @@ public class ParkingToll {
 		return null;
 	}
 
-
+	/**
+	 * Release slot with set the Slot isFree parameter to true. If the @param is a
+	 * free slot. nothing happens.
+	 * 
+	 * @param bookedSlot, we assume the Slot is not free.
+	 * @return true, if slot if found. return False, if slot does not exist in the
+	 *         parking lot.
+	 */
+	public Boolean releaseSlot(Slot bookedSlot) {
+		for (Slot slot : slots) {
+			if (slot.equals(bookedSlot)) {
+				bookedSlot.setIsFree(true);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public List<Slot> getSlots() {
 		return slots;

@@ -58,8 +58,8 @@ public class Slot {
 		return this.isFree;
 	}
 
-	protected void book() {
-		this.isFree = false;
+	protected void setIsFree(Boolean isFree) {
+		this.isFree = isFree;
 	}
 
 }

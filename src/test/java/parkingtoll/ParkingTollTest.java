@@ -64,6 +64,36 @@ public class ParkingTollTest {
 		assertNull(elect50Slot2);
 	}
 
+	@Test
+	public void releaseSlot() {
+		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
+		// 50kw.
+		Slot gasSlot1 = this.parking.bookSlot(gasCar);
+		// expected to have a gasoline slot busy. 0 gasoline slot left
+		this.parking.releaseSlot(gasSlot1);
+		// gasoline type slot is free again. Lets book it again.
+		Slot reBookedSlot = this.parking.bookSlot(gasCar);
+		assertEquals(new Slot(1, CarType.GASOLINE), reBookedSlot);
+
+		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
+		// 50kw.
+		Slot elect20Slot1 = this.parking.bookSlot(electric20kwCar);
+		// expected to have a gasoline slot busy. 0 gasoline slot left
+		this.parking.releaseSlot(elect20Slot1);
+		// gasoline type slot is free again. Lets book it again.
+		reBookedSlot = this.parking.bookSlot(electric20kwCar);
+		assertEquals(new Slot(2, CarType.ELECTRIC20KW), reBookedSlot);
+
+		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
+		// 50kw.
+		Slot elect50Slot1 = this.parking.bookSlot(electric50kwCar);
+		// expected to have a gasoline slot busy. 0 gasoline slot left
+		this.parking.releaseSlot(elect50Slot1);
+		// gasoline type slot is free again. Lets book it again.
+		reBookedSlot = this.parking.bookSlot(electric50kwCar);
+		assertEquals(new Slot(3, CarType.ELECTRIC50KW), reBookedSlot);
+	}
+
 	@After
 	public void cleanUp() {
 
