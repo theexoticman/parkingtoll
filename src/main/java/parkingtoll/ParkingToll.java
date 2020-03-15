@@ -21,13 +21,14 @@ public class ParkingToll {
 	 * 
 	 * @param newCar
 	 * @return Slot If available, null if no free slot for the cartype
+	 * @throws SlotOccupiedException
 	 */
-	public Slot bookSlot(Car newCar) {
+	public Slot bookSlot(Car newCar) throws SlotOccupiedException {
 		CarType type = newCar.getType();
 		for (Slot slot : this.getSlots()) {
 			if ((type == slot.getType()) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
-				slot.setIsFree(false);
+				slot.setSetCar(newCar);
 				return slot;
 			}
 		}
@@ -42,15 +43,17 @@ public class ParkingToll {
 	 * @param bookedSlot, we assume the Slot is not free.
 	 * @return true, if slot if found. return False, if slot does not exist in the
 	 *         parking lot.
+	 * @throws SlotNotFoundException
+	 * @throws SlotOccupiedException
 	 */
-	public Boolean releaseSlot(Slot bookedSlot) {
+	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, SlotOccupiedException {
 		for (Slot slot : slots) {
 			if (slot.equals(bookedSlot)) {
-				bookedSlot.setIsFree(true);
-				return true;
+				bookedSlot.setSetCar(null);
+				return;
 			}
 		}
-		return false;
+		throw new SlotNotFoundException(bookedSlot.getLocation());
 	}
 
 	public List<Slot> getSlots() {

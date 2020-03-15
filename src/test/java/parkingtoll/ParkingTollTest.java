@@ -45,7 +45,7 @@ public class ParkingTollTest {
 	}
 
 	@Test
-	public void findSlotTest() {
+	public void findSlotTest() throws SlotOccupiedException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
 		Slot gasSlot1 = this.parking.bookSlot(gasCar);
@@ -75,7 +75,7 @@ public class ParkingTollTest {
 	}
 
 	@Test
-	public void releaseSlotTest() {
+	public void releaseSlotTest() throws SlotOccupiedException, SlotNotFoundException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
 		Slot gasSlot1 = this.parking.bookSlot(gasCar);

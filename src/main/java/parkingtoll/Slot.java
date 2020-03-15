@@ -12,7 +12,7 @@ public class Slot {
 
 	private Integer location;
 	private CarType type;
-	private Boolean isFree;
+	private Car car;
 
 	/**
 	 * Slot Constructor
@@ -23,7 +23,6 @@ public class Slot {
 	public Slot(Integer location, CarType type) {
 		this.location = location;
 		this.type = type;
-		this.isFree = true;
 	}
 
 	/**
@@ -63,11 +62,16 @@ public class Slot {
 	}
 
 	public boolean isFree() {
-		return this.isFree;
+		return this.car == null ? true : false;
 	}
 
-	protected void setIsFree(Boolean isFree) {
-		this.isFree = isFree;
+	protected void setSetCar(Car newCar) throws SlotOccupiedException {
+		if (this.car != null) {
+			// slot already booked.
+			// software state shouldn't be possible.
+			throw new SlotOccupiedException(getLocation());
+		}
+		this.car = newCar;
 	}
 
 }
