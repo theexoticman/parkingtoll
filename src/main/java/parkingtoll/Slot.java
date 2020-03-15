@@ -65,13 +65,17 @@ public class Slot {
 		return this.car == null ? true : false;
 	}
 
-	protected void setSetCar(Car newCar) throws SlotOccupiedException {
+	protected void book(Car newCar) throws SlotOccupiedException {
 		if (this.car != null) {
 			// slot already booked.
 			// software state shouldn't be possible.
 			throw new SlotOccupiedException(getLocation());
 		}
 		this.car = newCar;
+	}
+
+	public void free() {
+		this.car = null;
 	}
 
 }

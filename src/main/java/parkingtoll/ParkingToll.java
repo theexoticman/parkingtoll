@@ -6,7 +6,22 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParkingToll {
+/**
+ * A Parking Toll is a representation of a parking with a list of slots. Slots
+ * are all available when Object is created.
+ * 
+ * This class offers three main methods: bookSlot will allow to associate a car
+ * to a free slot if any; Also, it can release the slot by removing the car
+ * reference from the wanted slot. Finally, it allows to calculate the price of
+ * a reservation object. The price is defined by a Pricing Policy that has to be
+ * implemented by the ParkingToll Class.
+ * 
+ * 
+ * 
+ * @author jlm
+ *
+ */
+public class ParkingToll implements PrincingPolicy {
 
 	private List<Slot> slots;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
@@ -28,7 +43,7 @@ public class ParkingToll {
 		for (Slot slot : this.getSlots()) {
 			if ((type == slot.getType()) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
-				slot.setSetCar(newCar);
+				slot.book(newCar);
 				return slot;
 			}
 		}
@@ -49,20 +64,19 @@ public class ParkingToll {
 	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, SlotOccupiedException {
 		for (Slot slot : slots) {
 			if (slot.equals(bookedSlot)) {
-				bookedSlot.setSetCar(null);
+				bookedSlot.free();
 				return;
 			}
 		}
 		throw new SlotNotFoundException(bookedSlot.getLocation());
 	}
 
+	@Override
+	public Price calculatePrice(Reservation res) {
+		return new Price(10, Currency.EUROS);
+	}
+
 	public List<Slot> getSlots() {
 		return slots;
 	}
-
-	public Price invoce(Reservation res) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
