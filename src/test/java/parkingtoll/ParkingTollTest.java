@@ -18,6 +18,10 @@ public class ParkingTollTest {
 	Car gasCar;
 	Car electric20kwCar;
 	Car electric50kwCar;
+	Slot gasSlot;
+	Slot elec20Slot;
+	Slot elec50Slot;
+
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
 	@Before
@@ -28,9 +32,15 @@ public class ParkingTollTest {
 
 		this.parking = new ParkingToll(freeSlots); // Parking is created with 2 free spot of each type.
 
+		// init car types
 		this.gasCar = new Car(1, CarType.GASOLINE);
 		this.electric20kwCar = new Car(2, CarType.ELECTRIC20KW);
 		this.electric50kwCar = new Car(3, CarType.ELECTRIC50KW);
+
+		// init the slot type
+		this.gasSlot = new Slot(1, CarType.GASOLINE);
+		this.gasSlot = new Slot(2, CarType.GASOLINE);
+		this.gasSlot = new Slot(1, CarType.GASOLINE);
 
 	}
 
@@ -65,7 +75,7 @@ public class ParkingTollTest {
 	}
 
 	@Test
-	public void releaseSlot() {
+	public void releaseSlotTest() {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
 		Slot gasSlot1 = this.parking.bookSlot(gasCar);
@@ -92,6 +102,15 @@ public class ParkingTollTest {
 		// gasoline type slot is free again. Lets book it again.
 		reBookedSlot = this.parking.bookSlot(electric50kwCar);
 		assertEquals(new Slot(3, CarType.ELECTRIC50KW), reBookedSlot);
+	}
+
+	@Test
+	public void InvoceSlot() {
+		Reservation res = new Reservation(this.gasCar, this.gasSlot);
+		Price expectedPrice = new Price(Double.valueOf(10), Currency.EUROS);
+		Price price = parking.invoce(res);
+		assertEquals(expectedPrice, price);
+
 	}
 
 	@After

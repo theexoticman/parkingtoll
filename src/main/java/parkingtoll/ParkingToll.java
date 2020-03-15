@@ -26,7 +26,7 @@ public class ParkingToll {
 		CarType type = newCar.getType();
 		for (Slot slot : this.getSlots()) {
 			if ((type == slot.getType()) && slot.isFree()) {
-				logger.debug("Slot %d is avaialble for car type: %s", slot.getId(), type);
+				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
 				slot.setIsFree(false);
 				return slot;
 			}
@@ -55,6 +55,11 @@ public class ParkingToll {
 
 	public List<Slot> getSlots() {
 		return slots;
+	}
+
+	public Price invoce(Reservation res) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
