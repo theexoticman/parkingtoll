@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,13 @@ import parkingtoll.PricingPolicy.PricingPolicy;
  */
 public abstract class ParkingToll implements PricingPolicy {
 
+	private Semaphore mutex;
 	private Set<Slot> slots;
 	private List<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
 	public ParkingToll(Set<Slot> freeSlots) {
+		this.mutex = new Semaphore(1);
 		this.slots = freeSlots;
 		this.reservations = new ArrayList<>();
 	}
@@ -53,17 +56,25 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @return Slot If available, null if no free slot for the cartype
 	 * @throws SlotOccupiedException
 	 * @throws NullParameterException
+	 * @throws InterruptedException
 	 */
 	public synchronized Optional<Slot> bookSlot(Car newCar, Reservation reservation)
-			throws SlotOccupiedException, NullParameterException {
+			throws SlotOccupiedException, NullParameterException, InterruptedException {
 		if (newCar == null) {
-			throw new NullParameterException(newCar.getClass().toString());
+			throw new NullParameterException("Car");
 		}
 		if (reservation == null) {
-			throw new NullParameterException(reservation.getClass().toString());
+			throw new NullParameterException("Reservation");
 		}
+
 		String type = newCar.getType().toString();
 		Slot freeSlot = null;
+		try {
+			mutex.acquire();
+		} catch (InterruptedException e) {
+			logger.error("Mutex Aquisition failed; Internal error.");
+			throw e;
+		}
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				freeSlot = slot;
@@ -73,6 +84,7 @@ public abstract class ParkingToll implements PricingPolicy {
 				this.reservations.add(reservation);
 			}
 		}
+		mutex.release();
 		logger.debug("No slot available for car type: %s", type);
 		return Optional.ofNullable(freeSlot);
 	}
