@@ -7,7 +7,6 @@ import parkingtoll.Entity.Reservation;
  * calculatePrice. This iinterface removes all the pricing policy logic from the
  * Parking Toll when implementing any interface implementing PricingPolicy.
  * 
- * 
  * @author jlm
  *
  */
