@@ -1,5 +1,6 @@
 package parkingtoll;
 
-public enum Currency {
-	EUROS, DOllARS, REAIS, PESOS
+public enum Currency implements Convertible {
+	EUROS, DOllARS, REAIS, PESOS;
+
 }

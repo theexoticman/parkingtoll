@@ -23,7 +23,7 @@ public abstract class Car {
 		return this.type;
 	}
 
-	public Object getLicensePlate() {
+	public String getLicensePlate() {
 		return this.licensePlate;
 	}
 

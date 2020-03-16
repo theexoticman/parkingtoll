@@ -2,14 +2,14 @@ package parkingtoll;
 
 public class Price {
 	private Double amount;
-	private Currency currency;
+	private Convertible currency;
 
-	public Price(Double amount, Currency currency) {
+	public Price(Double amount, Convertible currency) {
 		this.amount = amount;
 		this.currency = currency;
 	}
 
-	public Price(Integer amount, Currency currency) {
+	public Price(Integer amount, Convertible currency) {
 		this.amount = Double.valueOf(amount);
 		this.currency = currency;
 	}
@@ -46,7 +46,7 @@ public class Price {
 		return this.amount;
 	}
 
-	private Currency getCurrency() {
+	private Convertible getCurrency() {
 		return this.currency;
 	}
 }

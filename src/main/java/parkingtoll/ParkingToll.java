@@ -1,5 +1,6 @@
 package parkingtoll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,13 +23,15 @@ import parkingtoll.vehicules.Car;
  * @author jlm
  *
  */
-public class ParkingToll implements PrincingPolicy {
+public class ParkingToll implements FixedPrincingPolicy {
 
 	private List<Slot> slots;
+	private List<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
 	public ParkingToll(List<Slot> freeSlots) {
 		this.slots = freeSlots;
+		this.reservations = new ArrayList<>();
 	}
 
 	/**
@@ -45,6 +48,8 @@ public class ParkingToll implements PrincingPolicy {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
+				Reservation res = new Reservation(newCar, slot);
+				this.reservations.add(res);
 				return slot;
 			}
 		}
@@ -70,11 +75,6 @@ public class ParkingToll implements PrincingPolicy {
 			}
 		}
 		throw new SlotNotFoundException(bookedSlot.getLocation());
-	}
-
-	@Override
-	public Price calculatePrice(Reservation res) {
-		return new Price(10, Currency.EUROS);
 	}
 
 	public List<Slot> getSlots() {

@@ -1,5 +1,5 @@
 package parkingtoll;
 
-public interface PrincingPolicy {
+public interface PricingPolicy {
 	public Price calculatePrice(Reservation res);
 }
