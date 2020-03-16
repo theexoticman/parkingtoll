@@ -7,8 +7,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import parkingtoll.Entity.Default.SlotMaracana;
-import parkingtoll.Vehicules.CarType;
+import parkingtoll.Car.CarType;
+import parkingtoll.Shared.Slot;
+import parkingtoll.Shared.Examples.SlotMaracana;
 
 public class SlotTest {
 	private Slot slotGas1;

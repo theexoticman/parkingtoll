@@ -1,8 +1,8 @@
-package parkingtoll.Entity;
+package parkingtoll.Shared;
 
+import parkingtoll.Car.Car;
+import parkingtoll.Car.Parkable;
 import parkingtoll.Exceptions.SlotOccupiedException;
-import parkingtoll.Vehicules.Car;
-import parkingtoll.Vehicules.Parkable;
 
 /**
  * Slot is a class that represents a slot in the parking Toll. It can only used

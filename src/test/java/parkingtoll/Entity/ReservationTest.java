@@ -7,14 +7,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import parkingtoll.Entity.Default.ReservationMaracana;
-import parkingtoll.Entity.Default.SlotMaracana;
+import parkingtoll.Car.Car;
+import parkingtoll.Car.CarType;
 import parkingtoll.PricingPolicy.Price;
+import parkingtoll.Shared.Reservation;
+import parkingtoll.Shared.Slot;
+import parkingtoll.Shared.Examples.Electric20kwCar;
+import parkingtoll.Shared.Examples.GasolineCar;
+import parkingtoll.Shared.Examples.ReservationMaracana;
+import parkingtoll.Shared.Examples.SlotMaracana;
 import parkingtoll.Util.Utils;
-import parkingtoll.Vehicules.Car;
-import parkingtoll.Vehicules.CarType;
-import parkingtoll.Vehicules.Electric20kwCar;
-import parkingtoll.Vehicules.GasolineCar;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.

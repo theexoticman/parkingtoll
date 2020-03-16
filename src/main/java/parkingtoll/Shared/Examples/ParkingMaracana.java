@@ -1,11 +1,11 @@
-package parkingtoll.Entity.Default;
+package parkingtoll.Shared.Examples;
 
 import java.util.List;
 import java.util.Set;
 
-import parkingtoll.Entity.ParkingToll;
-import parkingtoll.Entity.Slot;
-import parkingtoll.PricingPolicy.FixedPrincingPolicy;
+import parkingtoll.PricingPolicy.Example.FixedPrincingPolicy;
+import parkingtoll.Shared.ParkingToll;
+import parkingtoll.Shared.Slot;
 
 /**
  * this is Default impelmentation of ParkingToll. Used for testing. it can be

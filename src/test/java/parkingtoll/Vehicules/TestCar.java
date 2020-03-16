@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import parkingtoll.Car.Car;
+import parkingtoll.Shared.Examples.Electric20kwCar;
+import parkingtoll.Shared.Examples.GasolineCar;
+
 public class TestCar {
 
 	private Car carPlate01;

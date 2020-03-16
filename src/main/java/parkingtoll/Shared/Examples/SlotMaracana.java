@@ -1,7 +1,7 @@
-package parkingtoll.Entity.Default;
+package parkingtoll.Shared.Examples;
 
-import parkingtoll.Entity.Slot;
-import parkingtoll.Vehicules.Parkable;
+import parkingtoll.Car.Parkable;
+import parkingtoll.Shared.Slot;
 
 public class SlotMaracana extends Slot {
 

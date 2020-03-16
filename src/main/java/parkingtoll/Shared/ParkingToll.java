@@ -1,16 +1,18 @@
-package parkingtoll.Entity;
+package parkingtoll.Shared;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import parkingtoll.Car.Car;
+import parkingtoll.Exception.NullParameterException;
 import parkingtoll.Exceptions.SlotNotFoundException;
 import parkingtoll.Exceptions.SlotOccupiedException;
 import parkingtoll.PricingPolicy.PricingPolicy;
-import parkingtoll.Vehicules.Car;
 
 /**
  * A Parking Toll is a representation of a parking lot with a list of slots.
@@ -50,20 +52,29 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @param newCar
 	 * @return Slot If available, null if no free slot for the cartype
 	 * @throws SlotOccupiedException
+	 * @throws NullParameterException
 	 */
-	public synchronized Slot bookSlot(Car newCar, Reservation reservation) throws SlotOccupiedException {
+	public synchronized Optional<Slot> bookSlot(Car newCar, Reservation reservation)
+			throws SlotOccupiedException, NullParameterException {
+		if (newCar == null) {
+			throw new NullParameterException(newCar.getClass().toString());
+		}
+		if (reservation == null) {
+			throw new NullParameterException(reservation.getClass().toString());
+		}
 		String type = newCar.getType().toString();
+		Slot freeSlot = null;
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
+				freeSlot = slot;
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
 				reservation.initReservation(newCar, slot);
 				this.reservations.add(reservation);
-				return slot;
 			}
 		}
 		logger.debug("No slot available for car type: %s", type);
-		return null;
+		return Optional.ofNullable(freeSlot);
 	}
 
 	/**
@@ -75,8 +86,12 @@ public abstract class ParkingToll implements PricingPolicy {
 	 *         parking lot.
 	 * @throws SlotNotFoundException
 	 * @throws SlotOccupiedException
+	 * @throws NullParameterException
 	 */
-	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, SlotOccupiedException {
+	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, NullParameterException {
+		if (bookedSlot == null) {
+			throw new NullParameterException(bookedSlot.getClass().toString());
+		}
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
 				bookedSlot.free();

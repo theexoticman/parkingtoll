@@ -1,4 +1,4 @@
-package parkingtoll.Vehicules;
+package parkingtoll.Car;
 
 /**
  * Default Enum listing the types of car. It is used for instantiating a Car

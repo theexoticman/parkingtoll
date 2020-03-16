@@ -1,8 +1,8 @@
-package parkingtoll.Entity;
+package parkingtoll.Shared;
 
+import parkingtoll.Car.Car;
 import parkingtoll.PricingPolicy.Price;
 import parkingtoll.Util.Utils;
-import parkingtoll.Vehicules.Car;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.
