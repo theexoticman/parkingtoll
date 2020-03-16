@@ -29,7 +29,7 @@ public abstract class Car {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null) {
 			return false;
 		}
 		Car car = (Car) obj;

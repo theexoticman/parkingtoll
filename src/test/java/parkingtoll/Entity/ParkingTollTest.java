@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.Entity;
 
 import static org.junit.Assert.*;
 
@@ -9,14 +9,16 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import parkingtoll.vehicules.Car;
-import parkingtoll.vehicules.CarType;
-import parkingtoll.vehicules.Electric20kwCar;
-import parkingtoll.vehicules.Electric50kwCar;
-import parkingtoll.vehicules.GasolineCar;
+import parkingtoll.Exceptions.SlotNotFoundException;
+import parkingtoll.Exceptions.SlotOccupiedException;
+import parkingtoll.PricingPolicy.Currency;
+import parkingtoll.PricingPolicy.Price;
+import parkingtoll.Vehicules.Car;
+import parkingtoll.Vehicules.CarType;
+import parkingtoll.Vehicules.Electric20kwCar;
+import parkingtoll.Vehicules.Electric50kwCar;
+import parkingtoll.Vehicules.GasolineCar;
 
 public class ParkingTollTest {
 
@@ -47,7 +49,7 @@ public class ParkingTollTest {
 		this.gasSlot = new Slot(1, CarType.GASOLINE.toString());
 		this.gasSlot = new Slot(2, CarType.GASOLINE.toString());
 		this.gasSlot = new Slot(1, CarType.GASOLINE.toString());
-
+		
 	}
 
 	@Test
@@ -63,9 +65,9 @@ public class ParkingTollTest {
 
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot elect20Slot1 = this.parking.bookSlot(electric20kwCar);
+		Slot elec20Slot = this.parking.bookSlot(electric20kwCar);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
-		assertEquals(new Slot(2, CarType.ELECTRIC20KW.toString()), elect20Slot1);
+		assertEquals(new Slot(1, CarType.ELECTRIC20KW.toString()), elec20Slot);
 		Slot elect20Slot2 = this.parking.bookSlot(electric20kwCar);
 		// 0 gasoline left fot the new car.
 		assertNull(elect20Slot2);
