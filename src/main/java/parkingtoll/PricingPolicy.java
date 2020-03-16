@@ -13,8 +13,8 @@ public interface PricingPolicy {
 	 * Calculate Price must be implemented by every interface implementing pricing
 	 * policy. It will be implemented by the ParkingToll class
 	 * 
-	 * @param res
-	 * @return
+	 * @param res, reservation holding infromation for invocing.
+	 * @return price, amount and currency, as implemented by the policy.
 	 */
 	public Price calculatePrice(Reservation res);
 }

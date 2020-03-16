@@ -27,14 +27,15 @@ public abstract class Reservation {
 	 * Create the Reservation object with the car and slot associated. Arrival tim
 	 * will be set to the reservation creation.
 	 * 
-	 * @param car
-	 * @param slot
 	 */
 	protected Reservation() {
 	}
 
 	/**
-	 * Initialize the reservation
+	 * Initialize the reservation with the car and slot associated
+	 * 
+	 * @param car,  car to be parked.
+	 * @param slot, slot assined to the car.
 	 */
 	protected void initReservation(Car car, Slot slot) {
 		this.arrivalTime = System.nanoTime();
@@ -69,7 +70,7 @@ public abstract class Reservation {
 	 * Resources are instantied. isEmpty allows to know if the reservation as been
 	 * filled with the reservation information, or not.
 	 * 
-	 * @return
+	 * @return, true is empty, false otherwise
 	 */
 	public boolean isEmpty() {
 		return hashCode() == 0 ? true : false;
@@ -80,22 +81,42 @@ public abstract class Reservation {
 		return this.getId().hashCode();
 	}
 
-	public String getId() {
+	/**
+	 * get reservation id 
+	 * @return, string id
+	 */
+	protected String getId() {
 		return id;
 	}
 
-	public Long getDurationMin() {
+	/**
+	 * reservation duration in minutes 
+	 * @return, long, duration
+	 */
+	protected Long getDurationMin() {
 		return durationMin;
 	}
 
-	public Car getCar() {
+	/**
+	 * return car associated to the reservation 
+	 * @return, car
+	 */
+	protected Car getCar() {
 		return car;
 	}
 
-	public Slot getSlot() {
+	/**
+	 * return slot associated to the reservation 
+	 * @return, slot
+	 */
+	protected Slot getSlot() {
 		return slot;
 	}
 
+	/**
+	 * price associated to the reservation 
+	 * @return, price instance.
+	 */
 	public Price getPrice() {
 		return price;
 	}

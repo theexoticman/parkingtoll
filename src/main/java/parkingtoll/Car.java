@@ -14,15 +14,28 @@ public abstract class Car {
 	private String licensePlate;
 	private String type;
 
+	/**
+	 * Main constructor
+	 * @param licensePlate, string car identification
+	 * @param type, cartype enum
+	 */
 	public Car(String licensePlate, Parkable type) {
 		this.licensePlate = licensePlate;
 		this.type = type.getType();
 	}
 
+	/**
+	 * Get car type,
+	 * @return string, car type, enum representation.
+	 */
 	protected String getType() {
 		return this.type;
 	}
 
+	/**
+	 * get license plate, car identification
+	 * @return, string, car identification
+	 */
 	protected String getLicensePlate() {
 		return this.licensePlate;
 	}

@@ -52,10 +52,18 @@ public class Price {
 		return result;
 	}
 
+	/**
+	 *  get Price amount
+	 * @return, return amount part
+	 */
 	private Double getAmount() {
 		return this.amount;
 	}
 
+	/**
+	 * get the currency
+	 * @return, currency, from enum
+	 */
 	private Convertible getCurrency() {
 		return this.currency;
 	}

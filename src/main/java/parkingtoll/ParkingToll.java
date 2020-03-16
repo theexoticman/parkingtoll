@@ -52,13 +52,14 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * Method must be syncrhonized to prevent, in a distributed context, two new car
 	 * having the same slot assigned.
 	 * 
-	 * @param newCar
+	 * @param newCar, new car to be parked.
 	 * @return Slot If available, null if no free slot for the cartype
-	 * @throws SlotOccupiedException
-	 * @throws NullParameterException
-	 * @throws InterruptedException
+	 * @throws SlotOccupiedException,  thrown if slot found is already occupied
+	 * @throws NullParameterException, thrown is method parameters are null
+	 * @throws InterruptedException,   thrown when internal error while aquiring the
+	 *                                 mutex
 	 */
-	public synchronized Optional<Slot> bookSlot(Car newCar, Reservation reservation)
+	public Optional<Slot> bookSlot(Car newCar, Reservation reservation)
 			throws SlotOccupiedException, NullParameterException, InterruptedException {
 		if (newCar == null) {
 			throw new NullParameterException("Car");
@@ -96,9 +97,9 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @param bookedSlot, we assume the Slot is not free.
 	 * @return true, if slot if found. return False, if slot does not exist in the
 	 *         parking lot.
-	 * @throws SlotNotFoundException
-	 * @throws SlotOccupiedException
-	 * @throws NullParameterException
+	 * @throws SlotNotFoundException,  thrown if slot to be released is not found in
+	 *                                 the set of slots.
+	 * @throws NullParameterException, thrown if parameter is null;
 	 */
 	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, NullParameterException {
 		if (bookedSlot == null) {
@@ -113,7 +114,11 @@ public abstract class ParkingToll implements PricingPolicy {
 		throw new SlotNotFoundException(bookedSlot.getLocation());
 	}
 
-	public Set<Slot> getSlots() {
+	/**
+	 * get parking slots for testing purposed
+	 * @return, set of slots.
+	 */
+	protected Set<Slot> getSlots() {
 		return slots;
 	}
 }

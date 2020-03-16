@@ -21,8 +21,8 @@ public abstract class Slot {
 	/**
 	 * Slot Constructor
 	 * 
-	 * @param slotId, slot identification.
-	 * @param type,   associated to a car type.
+	 * @param location, slot location and identification
+	 * @param parkable, one of a car type
 	 */
 	protected Slot(Integer location, Parkable parkable) {
 		this.location = location;
@@ -50,23 +50,34 @@ public abstract class Slot {
 	}
 
 	/**
-	 * Slot Id getter @return, slot id
+	 * Slot Id getter 
+	 * @return, slot id` @return, slot location.
 	 */
 	public Integer getLocation() {
 		return location;
 	}
 
 	/**
-	 * Slot Type getter @return, slot type
+	 * Get Slot type 
+	 * @return, string, slot type.
 	 */
 	public String getType() {
 		return this.type;
 	}
 
+	/**
+	 * return is the slot is free 
+	 * @return, true is slot free, false, else
+	 */
 	protected boolean isFree() {
 		return this.car == null ? true : false;
 	}
 
+	/**
+	 * Set a car to this slot. 
+	 * @param newCar, new to car park
+	 * @throws, if slot is occupied
+	 * */
 	protected void book(Car newCar) throws SlotOccupiedException {
 		if (this.car != null) {
 			// slot already booked.
