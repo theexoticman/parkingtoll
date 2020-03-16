@@ -43,7 +43,7 @@ public class ParkingToll implements FixedPrincingPolicy {
 	 * @throws SlotOccupiedException
 	 */
 	public Slot bookSlot(Car newCar) throws SlotOccupiedException {
-		String type = newCar.getType();
+		String type = newCar.getType().toString();
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);

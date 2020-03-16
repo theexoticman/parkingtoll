@@ -14,9 +14,9 @@ public abstract class Car {
 	private String licensePlate;
 	private String type;
 
-	public Car(String licensePlate, String type) {
+	public Car(String licensePlate, Parkable type) {
 		this.licensePlate = licensePlate;
-		this.type = type;
+		this.type = type.getType();
 	}
 
 	public String getType() {
