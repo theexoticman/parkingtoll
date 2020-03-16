@@ -1,5 +1,13 @@
-package parkingtoll.vehicules;
+package parkingtoll.Vehicules;
 
+/**
+ * Default Enum listing the types of car. It is used for instantiating a Car
+ * instance. One can add extend this feature and define more types of car
+ * creating an enum and implementing the Parkable interface.
+ * 
+ * @author jlm
+ *
+ */
 public enum CarType implements Parkable {
 	GASOLINE, ELECTRIC20KW, ELECTRIC50KW;
 

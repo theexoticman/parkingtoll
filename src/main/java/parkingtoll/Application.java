@@ -1,6 +1,6 @@
 package parkingtoll;
 
-import parkingtoll.vehicules.CarType;
+import parkingtoll.Vehicules.CarType;
 
 public class Application {
 
