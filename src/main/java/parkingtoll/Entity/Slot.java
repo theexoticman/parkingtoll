@@ -2,6 +2,7 @@ package parkingtoll.Entity;
 
 import parkingtoll.Exceptions.SlotOccupiedException;
 import parkingtoll.Vehicules.Car;
+import parkingtoll.Vehicules.Parkable;
 
 /**
  * Slot is a class that represents a slot in the parking Toll. It can only used
@@ -23,9 +24,9 @@ public class Slot {
 	 * @param slotId, slot identification.
 	 * @param type,   associated to a car type.
 	 */
-	public Slot(Integer location, String type) {
+	public Slot(Integer location, Parkable parkable) {
 		this.location = location;
-		this.type = type;
+		this.type = parkable.getType();
 	}
 
 	/**
