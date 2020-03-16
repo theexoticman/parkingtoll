@@ -1,4 +1,4 @@
-package parkingtoll.Shared;
+package parkingtoll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import java.util.concurrent.Semaphore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import parkingtoll.Car.Car;
-import parkingtoll.Exception.NullParameterException;
-import parkingtoll.Exceptions.SlotNotFoundException;
-import parkingtoll.Exceptions.SlotOccupiedException;
-import parkingtoll.PricingPolicy.PricingPolicy;
+import parkingtoll.Car;
+import parkingtoll.NullParameterException;
+import parkingtoll.SlotNotFoundException;
+import parkingtoll.SlotOccupiedException;
+import parkingtoll.PricingPolicy;
 
 /**
  * A Parking Toll is a representation of a parking lot with a list of slots.
@@ -102,7 +102,7 @@ public abstract class ParkingToll implements PricingPolicy {
 	 */
 	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, NullParameterException {
 		if (bookedSlot == null) {
-			throw new NullParameterException(bookedSlot.getClass().toString());
+			throw new NullParameterException("Slot");
 		}
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {

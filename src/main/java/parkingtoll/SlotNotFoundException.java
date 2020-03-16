@@ -1,4 +1,4 @@
-package parkingtoll.Exceptions;
+package parkingtoll;
 
 /**
  * Exception raise when slot is not found in the parking. Reveal a problem on

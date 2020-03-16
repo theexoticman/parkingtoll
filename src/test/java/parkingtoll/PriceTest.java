@@ -1,4 +1,4 @@
-package parkingtoll.PricingPolicy;
+package parkingtoll;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

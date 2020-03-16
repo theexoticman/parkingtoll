@@ -1,8 +1,8 @@
-package parkingtoll.Shared;
+package parkingtoll;
 
-import parkingtoll.Car.Car;
-import parkingtoll.PricingPolicy.Price;
-import parkingtoll.Util.Utils;
+import parkingtoll.Car;
+import parkingtoll.Price;
+import parkingtoll.Utils;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.
@@ -30,13 +30,13 @@ public abstract class Reservation {
 	 * @param car
 	 * @param slot
 	 */
-	public Reservation() {
+	protected Reservation() {
 	}
 
 	/**
 	 * Initialize the reservation
 	 */
-	public void initReservation(Car car, Slot slot) {
+	protected void initReservation(Car car, Slot slot) {
 		this.arrivalTime = System.nanoTime();
 		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation())).concat(String.valueOf(arrivalTime));
 		this.car = car;
@@ -47,7 +47,7 @@ public abstract class Reservation {
 	 * Put an end to the reservation by setting the departure time at method
 	 * execution time.
 	 */
-	public void closeReservation() {
+	protected void closeReservation() {
 		this.departureTime = System.nanoTime();
 		this.durationMin = Utils.getElapsedMin(this.arrivalTime, this.departureTime);
 	}

@@ -1,6 +1,6 @@
-package parkingtoll.PricingPolicy;
+package parkingtoll;
 
-import parkingtoll.PricingPolicy.Convertible;
+import parkingtoll.Convertible;
 
 /**
  * Currency Enum, defining the different types of currency. For mor currency,

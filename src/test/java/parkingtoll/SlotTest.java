@@ -1,15 +1,14 @@
-package parkingtoll.Entity;
+package parkingtoll;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import parkingtoll.Car.CarType;
-import parkingtoll.Shared.Slot;
-import parkingtoll.Shared.Examples.SlotMaracana;
+import parkingtoll.CarType;
+import parkingtoll.Slot;
+import parkingtoll.SlotMaracana;
 
 public class SlotTest {
 	private Slot slotGas1;

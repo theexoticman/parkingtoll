@@ -1,9 +1,9 @@
-package parkingtoll.PricingPolicy.Example;
+package parkingtoll;
 
-import parkingtoll.PricingPolicy.Currency;
-import parkingtoll.PricingPolicy.Price;
-import parkingtoll.PricingPolicy.PricingPolicy;
-import parkingtoll.Shared.Reservation;
+import parkingtoll.Currency;
+import parkingtoll.Price;
+import parkingtoll.PricingPolicy;
+import parkingtoll.Reservation;
 
 /**
  * Specific pricing Policy that implements the Princing Policy main method:

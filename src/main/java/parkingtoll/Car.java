@@ -1,4 +1,4 @@
-package parkingtoll.Car;
+package parkingtoll;
 
 /**
  * Car is an abstract class that represent different type of cars. It is defined
@@ -19,11 +19,11 @@ public abstract class Car {
 		this.type = type.getType();
 	}
 
-	public String getType() {
+	protected String getType() {
 		return this.type;
 	}
 
-	public String getLicensePlate() {
+	protected String getLicensePlate() {
 		return this.licensePlate;
 	}
 

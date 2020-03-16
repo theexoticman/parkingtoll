@@ -1,6 +1,6 @@
-package parkingtoll.PricingPolicy;
+package parkingtoll;
 
-import parkingtoll.Shared.Reservation;
+import parkingtoll.Reservation;
 
 /**
  * Princing Policy defines the methods that have to be implemented by any

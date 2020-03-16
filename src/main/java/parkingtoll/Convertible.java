@@ -1,4 +1,4 @@
-package parkingtoll.PricingPolicy;
+package parkingtoll;
 
 /**
  * Interface implemented by Currency enum. To create enum with new currencies

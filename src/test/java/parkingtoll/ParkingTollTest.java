@@ -1,31 +1,30 @@
-package parkingtoll.Entity;
+package parkingtoll;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.swing.text.GapContent;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import parkingtoll.Car.Car;
-import parkingtoll.Car.CarType;
-import parkingtoll.Exception.NullParameterException;
-import parkingtoll.Exceptions.SlotNotFoundException;
-import parkingtoll.Exceptions.SlotOccupiedException;
-import parkingtoll.PricingPolicy.Currency;
-import parkingtoll.PricingPolicy.Price;
-import parkingtoll.Shared.ParkingToll;
-import parkingtoll.Shared.Reservation;
-import parkingtoll.Shared.Slot;
-import parkingtoll.Shared.Examples.GasolineCar;
-import parkingtoll.Shared.Examples.ParkingMaracana;
-import parkingtoll.Shared.Examples.ReservationMaracana;
-import parkingtoll.Shared.Examples.SlotMaracana;
+import parkingtoll.Car;
+import parkingtoll.CarType;
+import parkingtoll.Currency;
+import parkingtoll.GasolineCar;
+import parkingtoll.NullParameterException;
+import parkingtoll.ParkingMaracana;
+import parkingtoll.ParkingToll;
+import parkingtoll.Price;
+import parkingtoll.Reservation;
+import parkingtoll.ReservationMaracana;
+import parkingtoll.Slot;
+import parkingtoll.SlotMaracana;
+import parkingtoll.SlotNotFoundException;
+import parkingtoll.SlotOccupiedException;
 
 public class ParkingTollTest {
 

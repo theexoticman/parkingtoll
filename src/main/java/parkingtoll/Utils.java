@@ -1,4 +1,4 @@
-package parkingtoll.Util;
+package parkingtoll;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +19,7 @@ public class Utils {
 	 * @param end,   end of event
 	 * @return duration of the event in hours.
 	 */
-	public static long getElapsedHours(long start, long end) {
+	protected static long getElapsedHours(long start, long end) {
 		return TimeUnit.NANOSECONDS.convert(end - start, TimeUnit.HOURS);
 	}
 
@@ -31,7 +31,7 @@ public class Utils {
 	 * @param end,   end of event
 	 * @return duration of the event in minutes.
 	 */
-	public static long getElapsedMin(long start, long end) {
+	protected static long getElapsedMin(long start, long end) {
 		return TimeUnit.NANOSECONDS.convert(end - start, TimeUnit.MINUTES);
 	}
 }

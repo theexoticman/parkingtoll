@@ -1,7 +1,7 @@
-package parkingtoll.Shared.Examples;
+package parkingtoll;
 
-import parkingtoll.Car.Car;
-import parkingtoll.Car.CarType;
+import parkingtoll.Car;
+import parkingtoll.CarType;
 
 public class Electric50kwCar extends Car {
 

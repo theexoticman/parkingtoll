@@ -1,8 +1,8 @@
-package parkingtoll.Shared;
+package parkingtoll;
 
-import parkingtoll.Car.Car;
-import parkingtoll.Car.Parkable;
-import parkingtoll.Exceptions.SlotOccupiedException;
+import parkingtoll.Car;
+import parkingtoll.Parkable;
+import parkingtoll.SlotOccupiedException;
 
 /**
  * Slot is a class that represents a slot in the parking Toll. It can only used
@@ -24,7 +24,7 @@ public abstract class Slot {
 	 * @param slotId, slot identification.
 	 * @param type,   associated to a car type.
 	 */
-	public Slot(Integer location, Parkable parkable) {
+	protected Slot(Integer location, Parkable parkable) {
 		this.location = location;
 		this.type = parkable.getType();
 	}
@@ -63,7 +63,7 @@ public abstract class Slot {
 		return this.type;
 	}
 
-	public boolean isFree() {
+	protected boolean isFree() {
 		return this.car == null ? true : false;
 	}
 

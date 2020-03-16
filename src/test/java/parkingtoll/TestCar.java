@@ -1,4 +1,4 @@
-package parkingtoll.Vehicules;
+package parkingtoll;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import parkingtoll.Car.Car;
-import parkingtoll.Shared.Examples.Electric20kwCar;
-import parkingtoll.Shared.Examples.GasolineCar;
+import parkingtoll.Car;
+import parkingtoll.Electric20kwCar;
+import parkingtoll.GasolineCar;
 
 public class TestCar {
 

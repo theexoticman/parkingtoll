@@ -1,6 +1,6 @@
-package parkingtoll.PricingPolicy;
+package parkingtoll;
 
-import parkingtoll.PricingPolicy.Convertible;
+import parkingtoll.Convertible;
 
 /**
  * 
@@ -14,12 +14,12 @@ public class Price {
 	private Double amount;
 	private Convertible currency;
 
-	public Price(Double amount, Convertible currency) {
+	protected Price(Double amount, Convertible currency) {
 		this.amount = amount;
 		this.currency = currency;
 	}
 
-	public Price(Integer amount, Convertible currency) {
+	protected Price(Integer amount, Convertible currency) {
 		this.amount = Double.valueOf(amount);
 		this.currency = currency;
 	}
