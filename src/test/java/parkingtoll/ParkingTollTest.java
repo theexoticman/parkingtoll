@@ -2,6 +2,8 @@ package parkingtoll;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,7 +17,6 @@ import parkingtoll.Car;
 import parkingtoll.CarType;
 import parkingtoll.Currency;
 import parkingtoll.GasolineCar;
-import parkingtoll.NullParameterException;
 import parkingtoll.ParkingMaracana;
 import parkingtoll.ParkingToll;
 import parkingtoll.Price;
@@ -23,32 +24,37 @@ import parkingtoll.Reservation;
 import parkingtoll.ReservationMaracana;
 import parkingtoll.Slot;
 import parkingtoll.SlotMaracana;
-import parkingtoll.SlotNotFoundException;
-import parkingtoll.SlotOccupiedException;
 
 public class ParkingTollTest {
 
 	private ParkingToll parking;
 
 	private Car gasCar;
+	private Car elec20KWCar;
+	private Car elec50KWCar;
 
 	private Slot gasSlot;
-	private Slot gasElect20KW;
-	private Slot gasElect50KW;
+	private Slot elec20KWSlot;
+	private Slot elec50KWSlot;
 
 	@Before
 	public void setup() {
 		Set<Slot> freeSlots = new HashSet<>();
 		gasSlot = new SlotMaracana(1, CarType.GASOLINE);
-		gasElect20KW = new SlotMaracana(2, CarType.ELECTRIC20KW);
-		gasElect50KW = new SlotMaracana(3, CarType.ELECTRIC50KW);
-		freeSlots.addAll(Arrays.asList(gasSlot, gasElect20KW, gasElect50KW));
+		elec20KWSlot = new SlotMaracana(2, CarType.ELECTRIC20KW);
+		elec50KWSlot = new SlotMaracana(3, CarType.ELECTRIC50KW);
+		freeSlots.addAll(Arrays.asList(gasSlot, elec20KWSlot, elec50KWSlot));
 
 		this.parking = new ParkingMaracana(freeSlots); // Parking is created with 2 free spot of each type.
 
 		// init the slot type
 		this.gasSlot = new SlotMaracana(1, CarType.GASOLINE);
+		this.elec20KWSlot = new SlotMaracana(2, CarType.ELECTRIC20KW);
+		this.elec50KWSlot = new SlotMaracana(3, CarType.ELECTRIC50KW);
+		// init cat
 		this.gasCar = new GasolineCar("01XGMC");
+		this.elec20KWCar = new GasolineCar("01XGMC");
+		this.elec50KWCar = new GasolineCar("01XGMC");
 
 	}
 
@@ -63,7 +69,7 @@ public class ParkingTollTest {
 	}
 
 	@Test
-	public void findSlotTest() throws SlotOccupiedException, NullParameterException, InterruptedException {
+	public void findSlotTest() throws InterruptedException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
 		Reservation resMaracana1Completed = new ReservationMaracana();
@@ -78,14 +84,15 @@ public class ParkingTollTest {
 	}
 
 	@Test
-	public void releaseSlotTest()
-			throws SlotOccupiedException, SlotNotFoundException, NullParameterException, InterruptedException {
+	public void releaseSlotTest() throws InterruptedException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
 		Reservation resMaracana1Completed = new ReservationMaracana();
 		Optional<Slot> gasSlot1 = this.parking.bookSlot(this.gasCar, resMaracana1Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
 		this.parking.releaseSlot(gasSlot1.get());
+		// release slot already released.
+		assertTrue(this.parking.releaseSlot(gasSlot1.get()));
 		// gasoline type slot is free again. Lets book it again.
 		Optional<Slot> reBookedSlot = this.parking.bookSlot(this.gasCar, resMaracana1Completed);
 		assertEquals(new SlotMaracana(1, CarType.GASOLINE), reBookedSlot.get());

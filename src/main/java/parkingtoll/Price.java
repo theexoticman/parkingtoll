@@ -53,7 +53,7 @@ public class Price {
 	}
 
 	/**
-	 *  get Price amount
+	 * get Price amount
 	 * @return, return amount part
 	 */
 	private Double getAmount() {

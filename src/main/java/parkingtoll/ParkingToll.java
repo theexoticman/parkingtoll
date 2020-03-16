@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import parkingtoll.Car;
-import parkingtoll.NullParameterException;
-import parkingtoll.SlotNotFoundException;
-import parkingtoll.SlotOccupiedException;
 import parkingtoll.PricingPolicy;
 
 /**
@@ -59,17 +56,14 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @throws InterruptedException,   thrown when internal error while aquiring the
 	 *                                 mutex
 	 */
-	public Optional<Slot> bookSlot(Car newCar, Reservation reservation)
-			throws SlotOccupiedException, NullParameterException, InterruptedException {
-		if (newCar == null) {
-			throw new NullParameterException("Car");
-		}
-		if (reservation == null) {
-			throw new NullParameterException("Reservation");
+	public Optional<Slot> bookSlot(Car newCar, Reservation reservation) throws InterruptedException {
+		Slot freeSlot = null;
+		if (newCar == null || reservation == null) {
+			return Optional.ofNullable(freeSlot);
 		}
 
 		String type = newCar.getType().toString();
-		Slot freeSlot = null;
+
 		try {
 			mutex.acquire();
 		} catch (InterruptedException e) {
@@ -97,26 +91,20 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @param bookedSlot, we assume the Slot is not free.
 	 * @return true, if slot if found. return False, if slot does not exist in the
 	 *         parking lot.
-	 * @throws SlotNotFoundException,  thrown if slot to be released is not found in
-	 *                                 the set of slots.
-	 * @throws NullParameterException, thrown if parameter is null;
+	 * 
 	 */
-	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, NullParameterException {
-		if (bookedSlot == null) {
-			throw new NullParameterException("Slot");
-		}
+	public Boolean releaseSlot(Slot bookedSlot) {
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
 				bookedSlot.free();
-				return;
+				return true;
 			}
 		}
-		throw new SlotNotFoundException(bookedSlot.getLocation());
+		return false;
 	}
 
 	/**
-	 * get parking slots for testing purposed
-	 * @return, set of slots.
+	 * get parking slots for testing purposed @return, set of slots.
 	 */
 	protected Set<Slot> getSlots() {
 		return slots;

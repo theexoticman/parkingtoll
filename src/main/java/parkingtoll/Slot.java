@@ -2,7 +2,6 @@ package parkingtoll;
 
 import parkingtoll.Car;
 import parkingtoll.Parkable;
-import parkingtoll.SlotOccupiedException;
 
 /**
  * Slot is a class that represents a slot in the parking Toll. It can only used
@@ -50,40 +49,32 @@ public abstract class Slot {
 	}
 
 	/**
-	 * Slot Id getter 
-	 * @return, slot id` @return, slot location.
+	 * Slot Id getter @return, slot id` @return, slot location.
 	 */
 	public Integer getLocation() {
 		return location;
 	}
 
 	/**
-	 * Get Slot type 
-	 * @return, string, slot type.
+	 * Get Slot type @return, string, slot type.
 	 */
 	public String getType() {
 		return this.type;
 	}
 
 	/**
-	 * return is the slot is free 
-	 * @return, true is slot free, false, else
+	 * return is the slot is free @return, true is slot free, false, else
 	 */
 	protected boolean isFree() {
 		return this.car == null ? true : false;
 	}
 
 	/**
-	 * Set a car to this slot. 
-	 * @param newCar, new to car park
-	 * @throws, if slot is occupied
-	 * */
-	protected void book(Car newCar) throws SlotOccupiedException {
-		if (this.car != null) {
-			// slot already booked.
-			// software state shouldn't be possible.
-			throw new SlotOccupiedException(getLocation());
-		}
+	 * Set a car to this slot.
+	 * 
+	 * @param newCar, new to car park @throws, if slot is
+	 */
+	protected void book(Car newCar) {
 		this.car = newCar;
 	}
 
