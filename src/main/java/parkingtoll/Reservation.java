@@ -20,7 +20,7 @@ public abstract class Reservation {
 	private Slot slot;
 	private Long arrivalTime;
 	private Long departureTime;
-	private Long durationMin;
+	private Long durationHour;
 	private Price price;
 
 	/**
@@ -50,7 +50,7 @@ public abstract class Reservation {
 	 */
 	protected void closeReservation() {
 		this.departureTime = System.nanoTime();
-		this.durationMin = Utils.getElapsedMin(this.arrivalTime, this.departureTime);
+		this.durationHour = Utils.getElapsedHours(this.arrivalTime, this.departureTime);
 	}
 
 	/**
@@ -82,40 +82,35 @@ public abstract class Reservation {
 	}
 
 	/**
-	 * get reservation id 
-	 * @return, string id
+	 * get reservation id @return, string id
 	 */
 	protected String getId() {
 		return id;
 	}
 
 	/**
-	 * reservation duration in minutes 
-	 * @return, long, duration
+	 * reservation duration in hours @return, long, duration
 	 */
-	protected Long getDurationMin() {
-		return durationMin;
+	protected Long getDurationHour() {
+		return durationHour;
 	}
 
 	/**
-	 * return car associated to the reservation 
-	 * @return, car
+	 * return car associated to the reservation @return, car
 	 */
 	protected Car getCar() {
 		return car;
 	}
 
 	/**
-	 * return slot associated to the reservation 
-	 * @return, slot
+	 * return slot associated to the reservation @return, slot
 	 */
 	protected Slot getSlot() {
 		return slot;
 	}
 
 	/**
-	 * price associated to the reservation 
-	 * @return, price instance.
+	 * price associated to the reservation @return, price instance.
 	 */
 	public Price getPrice() {
 		return price;

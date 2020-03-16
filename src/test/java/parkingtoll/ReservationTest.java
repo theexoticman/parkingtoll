@@ -69,7 +69,7 @@ public class ReservationTest {
 	@Test
 	public void closeReservationTest() {
 		res1.closeReservation();
-		assertTrue(res1.getDurationMin() > 0);
+		assertTrue(res1.getDurationHour() > 0);
 	}
 
 }

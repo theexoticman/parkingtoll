@@ -49,21 +49,24 @@ public abstract class Slot {
 	}
 
 	/**
-	 * Slot Id getter @return, slot id` @return, slot location.
+	 * Slot Id getter
+	 * @return, slot location 
 	 */
 	public Integer getLocation() {
 		return location;
 	}
 
 	/**
-	 * Get Slot type @return, string, slot type.
+	 * Get Slot type 
+	 * @return, string, slot type.
 	 */
 	public String getType() {
 		return this.type;
 	}
 
 	/**
-	 * return is the slot is free @return, true is slot free, false, else
+	 * return is the slot is free 
+	 * @return, true is slot free, false, else
 	 */
 	protected boolean isFree() {
 		return this.car == null ? true : false;
@@ -72,7 +75,7 @@ public abstract class Slot {
 	/**
 	 * Set a car to this slot.
 	 * 
-	 * @param newCar, new to car park @throws, if slot is
+	 * @param newCar, new to car park 
 	 */
 	protected void book(Car newCar) {
 		this.car = newCar;

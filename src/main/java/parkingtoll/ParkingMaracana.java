@@ -2,7 +2,7 @@ package parkingtoll;
 
 import java.util.Set;
 
-import parkingtoll.FixedPrincingPolicy;
+import parkingtoll.progressivePrincingPolicy;
 import parkingtoll.ParkingToll;
 import parkingtoll.Slot;
 
@@ -13,7 +13,7 @@ import parkingtoll.Slot;
  * @author jlm
  *
  */
-public class ParkingMaracana extends ParkingToll implements FixedPrincingPolicy {
+public class ParkingMaracana extends ParkingToll implements progressivePrincingPolicy {
 
 	public ParkingMaracana(Set<Slot> freeSlots) {
 		super(freeSlots);

@@ -1,6 +1,7 @@
 package parkingtoll;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.concurrent.Semaphore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.HandlerBase;
 
 import parkingtoll.Car;
 import parkingtoll.PricingPolicy;
@@ -33,13 +35,13 @@ public abstract class ParkingToll implements PricingPolicy {
 
 	private Semaphore mutex;
 	private Set<Slot> slots;
-	private List<Reservation> reservations;
+	private Set<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
 	public ParkingToll(Set<Slot> freeSlots) {
 		this.mutex = new Semaphore(1);
 		this.slots = freeSlots;
-		this.reservations = new ArrayList<>();
+		this.reservations = new HashSet<>();
 	}
 
 	/**
@@ -49,12 +51,10 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * Method must be syncrhonized to prevent, in a distributed context, two new car
 	 * having the same slot assigned.
 	 * 
-	 * @param newCar, new car to be parked.
+	 * @param newCar,      new car to be parked
+	 * @param reservation, reservation to be userd
 	 * @return Slot If available, null if no free slot for the cartype
-	 * @throws SlotOccupiedException,  thrown if slot found is already occupied
-	 * @throws NullParameterException, thrown is method parameters are null
-	 * @throws InterruptedException,   thrown when internal error while aquiring the
-	 *                                 mutex
+	 * 
 	 */
 	public Optional<Slot> bookSlot(Car newCar, Reservation reservation) throws InterruptedException {
 		Slot freeSlot = null;
@@ -73,14 +73,13 @@ public abstract class ParkingToll implements PricingPolicy {
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				freeSlot = slot;
-				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
+				logger.info("Slot %d is booked for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
 				reservation.initReservation(newCar, slot);
 				this.reservations.add(reservation);
 			}
 		}
 		mutex.release();
-		logger.debug("No slot available for car type: %s", type);
 		return Optional.ofNullable(freeSlot);
 	}
 
@@ -96,6 +95,7 @@ public abstract class ParkingToll implements PricingPolicy {
 	public Boolean releaseSlot(Slot bookedSlot) {
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
+				logger.info("Slot %d is free.", bookedSlot.getLocation());
 				bookedSlot.free();
 				return true;
 			}

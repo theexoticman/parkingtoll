@@ -13,8 +13,15 @@ import parkingtoll.Reservation;
  * @author jlm
  *
  */
-public interface FixedPrincingPolicy extends PricingPolicy {
+public interface progressivePrincingPolicy extends PricingPolicy {
+
+	final double fixFare = 10.0;
+	final double hourRate = 5;
+	final Currency currency = Currency.EUROS;
+
 	public default Price calculatePrice(Reservation res) {
-		return new Price(10, Currency.EUROS);
+		Integer hours = Math.toIntExact(res.getDurationHour());
+		double varFare = hours * hourRate;
+		return new Price(fixFare + varFare, currency);
 	}
 }

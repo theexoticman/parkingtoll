@@ -25,7 +25,7 @@ the car class can represent different types of car, based on their consumption m
 All the different type of cars are represented in the CarType enum.
 
 Available type of Car
-* Gasoline
+* gaosline
 * Electric20KW
 * Electric50KW
 
@@ -58,7 +58,7 @@ Junit is used for Unit testing as well as integration testing. Version used: 4.1
 
 ## Build
 
-For building the ParkingToll API, use the Maven script m in the root of the project.
+For building the ParkingToll API, use the Maven script in the root of the project with the clean and package options.
 
 ```bash
 ./mvnw clean package
@@ -69,7 +69,7 @@ For building the ParkingToll API, use the Maven script m in the root of the proj
 Maven Plugin maven-javadoc-plugin allows to generate the javadoc by running the command. It will also package and deploy the application. 
 
 ```bash
-./mvnw install
+./mvnw javadoc:javadoc
 ```
 
 
