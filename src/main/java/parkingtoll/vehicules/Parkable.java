@@ -1,4 +1,4 @@
-package parkingtoll.vehicules;
+package parkingtoll.Vehicules;
 
 /**
  * Define all the Car that can be parked in the parking lot.

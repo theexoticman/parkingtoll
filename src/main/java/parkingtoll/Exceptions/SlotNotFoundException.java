@@ -1,7 +1,8 @@
-package parkingtoll;
+package parkingtoll.Exceptions;
 
 /**
- * Exception when slot is not found in the parking.
+ * Exception raise when slot is not found in the parking. Reveal a problem on
+ * Library implementation.
  */
 public class SlotNotFoundException extends Exception {
 

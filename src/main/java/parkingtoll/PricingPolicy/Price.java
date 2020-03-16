@@ -1,5 +1,15 @@
-package parkingtoll;
+package parkingtoll.PricingPolicy;
 
+import parkingtoll.PricingPolicy.Convertible;
+
+/**
+ * 
+ * Price represents the Parking lot bill. It is returned by the Parking Toll
+ * when invoking calculatePrice method.
+ * 
+ * @author jlm
+ *
+ */
 public class Price {
 	private Double amount;
 	private Convertible currency;

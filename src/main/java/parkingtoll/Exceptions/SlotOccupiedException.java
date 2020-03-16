@@ -1,7 +1,7 @@
-package parkingtoll;
+package parkingtoll.Exceptions;
 
 /**
- * Exception generated when slot is occupied.
+ * Exception generated when slot is occupied.Reveal a problem on Library usage.
  * 
  * @author jlm
  *

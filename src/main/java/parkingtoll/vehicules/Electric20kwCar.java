@@ -1,4 +1,4 @@
-package parkingtoll.vehicules;
+package parkingtoll.Vehicules;
 
 public class Electric20kwCar extends Car {
 

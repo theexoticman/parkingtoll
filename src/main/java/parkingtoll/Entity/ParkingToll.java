@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,18 +6,20 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import parkingtoll.vehicules.Car;
+import parkingtoll.Exceptions.SlotNotFoundException;
+import parkingtoll.Exceptions.SlotOccupiedException;
+import parkingtoll.PricingPolicy.FixedPrincingPolicy;
+import parkingtoll.Vehicules.Car;
 
 /**
- * A Parking Toll is a representation of a parking with a list of slots. Slots
- * are all available when Object is created.
+ * A Parking Toll is a representation of a parking lot with a list of slots.
+ * Slots are all free when Parking Toll is created.
  * 
  * This class offers three main methods: bookSlot will allow to associate a car
- * to a free slot if any; Also, it can release the slot by removing the car
- * reference from the wanted slot. Finally, it allows to calculate the price of
- * a reservation object. The price is defined by a Pricing Policy that has to be
- * implemented by the ParkingToll Class.
- * 
+ * to a free slot if any for that car type; Also, it can release the slot by
+ * removing the car reference from the wanted slot. Finally, it allows to
+ * calculate the price of a reservation object. The price is defined by a
+ * Pricing Policy that has to be implemented by the ParkingToll Class.
  * 
  * 
  * @author jlm

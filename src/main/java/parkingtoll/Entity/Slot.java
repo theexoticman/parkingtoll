@@ -1,10 +1,11 @@
-package parkingtoll;
+package parkingtoll.Entity;
 
-import parkingtoll.vehicules.Car;
+import parkingtoll.Exceptions.SlotOccupiedException;
+import parkingtoll.Vehicules.Car;
 
 /**
- * Slot is a class that represents a slot in the parking. It can only used by
- * one car at a time. A slot it reserved to a type of car. A car from another
+ * Slot is a class that represents a slot in the parking Toll. It can only used
+ * by one car at a time. A slot it reserved to a type of car. A car from another
  * type cannot use the spot.
  * 
  * @author jlm

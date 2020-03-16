@@ -1,4 +1,4 @@
-package parkingtoll.vehicules;
+package parkingtoll.Vehicules;
 
 /**
  * Car is an abstract class that represent different type of cars. It is defined

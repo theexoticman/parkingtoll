@@ -1,14 +1,14 @@
-package parkingtoll;
+package parkingtoll.Entity;
 
-import javax.rmi.CORBA.Util;
-
-import parkingtoll.util.Utils;
-import parkingtoll.vehicules.Car;
+import parkingtoll.PricingPolicy.Price;
+import parkingtoll.Util.Utils;
+import parkingtoll.Vehicules.Car;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.
  * The arrival Date is the time in which this assigning is done. The departure
- * is when the Car is detached from the Slot.i.e. another car can book it.
+ * time is calculated when parking toll release the slot and the Car is detached
+ * from the Slot. i.e. another car can book it.
  * 
  * @author jlm
  *
@@ -69,6 +69,18 @@ public class Reservation {
 
 	public Long getDurationMin() {
 		return durationMin;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public Slot getSlot() {
+		return slot;
+	}
+
+	public Price getPrice() {
+		return price;
 	}
 
 }
