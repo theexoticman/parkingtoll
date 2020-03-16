@@ -13,7 +13,7 @@ import parkingtoll.Vehicules.Car;
  * @author jlm
  *
  */
-public class Reservation {
+public abstract class Reservation {
 
 	private String id;
 	private Car car;
@@ -30,11 +30,17 @@ public class Reservation {
 	 * @param car
 	 * @param slot
 	 */
-	public Reservation(Car car, Slot slot) {
-		this.id = car.getLicensePlate().concat(slot.getType());
+	public Reservation() {
+	}
+
+	/**
+	 * Initialize the reservation
+	 */
+	public void initReservation(Car car, Slot slot) {
+		this.arrivalTime = System.nanoTime();
+		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation())).concat(String.valueOf(arrivalTime));
 		this.car = car;
 		this.slot = slot;
-		this.arrivalTime = System.nanoTime();
 	}
 
 	/**
@@ -46,16 +52,27 @@ public class Reservation {
 		this.durationMin = Utils.getElapsedMin(this.arrivalTime, this.departureTime);
 	}
 
+	/**
+	 * Two reservation are equals if they contain the reference to the same car,
+	 * same slot and were created at the same time.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		Reservation res = (Reservation) obj;
-		if (res.getId() == null || this.getId() == null) {
-			return false;
-		}
 		return this.getId().equals(res.getId());
+	}
+
+	/**
+	 * Resources are instantied. isEmpty allows to know if the reservation as been
+	 * filled with the reservation information, or not.
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return hashCode() == 0 ? true : false;
 	}
 
 	@Override

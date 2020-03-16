@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import parkingtoll.Exceptions.SlotNotFoundException;
 import parkingtoll.Exceptions.SlotOccupiedException;
 import parkingtoll.PricingPolicy.FixedPrincingPolicy;
+import parkingtoll.PricingPolicy.PricingPolicy;
 import parkingtoll.Vehicules.Car;
 
 /**
@@ -21,11 +22,14 @@ import parkingtoll.Vehicules.Car;
  * calculate the price of a reservation object. The price is defined by a
  * Pricing Policy that has to be implemented by the ParkingToll Class.
  * 
+ * Parkingtoll is abstracted so that the library user can create its own praking
+ * object, being able to override any of the standard behaviour and allowing it
+ * to implements its own pricing policy
  * 
  * @author jlm
  *
  */
-public class ParkingToll implements FixedPrincingPolicy {
+public abstract class ParkingToll implements PricingPolicy {
 
 	private List<Slot> slots;
 	private List<Reservation> reservations;
@@ -40,18 +44,21 @@ public class ParkingToll implements FixedPrincingPolicy {
 	 * Find slot for car depending on the car type, only if any free slot is
 	 * available.
 	 * 
+	 * Method must be syncrhonized to prevent, in a distributed context, two new car
+	 * having the same slot assigned.
+	 * 
 	 * @param newCar
 	 * @return Slot If available, null if no free slot for the cartype
 	 * @throws SlotOccupiedException
 	 */
-	public Slot bookSlot(Car newCar) throws SlotOccupiedException {
+	public synchronized Slot bookSlot(Car newCar, Reservation reservation) throws SlotOccupiedException {
 		String type = newCar.getType().toString();
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				logger.debug("Slot %d is avaialble for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
-				Reservation res = new Reservation(newCar, slot);
-				this.reservations.add(res);
+				reservation.initReservation(newCar, slot);
+				this.reservations.add(reservation);
 				return slot;
 			}
 		}

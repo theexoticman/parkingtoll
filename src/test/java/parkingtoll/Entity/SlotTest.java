@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import parkingtoll.Entity.Default.SlotMaracana;
 import parkingtoll.Vehicules.CarType;
 
 public class SlotTest {
@@ -16,9 +17,9 @@ public class SlotTest {
 
 	@Before
 	public void setUp() {
-		this.slotGas1 = new Slot(1, CarType.GASOLINE);
-		this.slotGas2 = new Slot(2, CarType.GASOLINE);
-		this.slotElec1 = new Slot(1, CarType.ELECTRIC20KW);
+		this.slotGas1 = new SlotMaracana(1, CarType.GASOLINE);
+		this.slotGas2 = new SlotMaracana(2, CarType.GASOLINE);
+		this.slotElec1 = new SlotMaracana(1, CarType.ELECTRIC20KW);
 
 	}
 

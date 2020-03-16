@@ -9,6 +9,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import parkingtoll.Entity.Default.ParkingMaracana;
+import parkingtoll.Entity.Default.ReservationMaracana;
+import parkingtoll.Entity.Default.SlotMaracana;
 import parkingtoll.Exceptions.SlotNotFoundException;
 import parkingtoll.Exceptions.SlotOccupiedException;
 import parkingtoll.PricingPolicy.Currency;
@@ -34,10 +37,10 @@ public class ParkingTollTest {
 	@Before
 	public void setup() {
 		List<Slot> freeSlots = new ArrayList<>();
-		freeSlots.addAll(Arrays.asList(new Slot(1, CarType.GASOLINE), new Slot(2, CarType.ELECTRIC20KW),
-				new Slot(3, CarType.ELECTRIC50KW)));
+		freeSlots.addAll(Arrays.asList(new SlotMaracana(1, CarType.GASOLINE), new SlotMaracana(2, CarType.ELECTRIC20KW),
+				new SlotMaracana(3, CarType.ELECTRIC50KW)));
 
-		this.parking = new ParkingToll(freeSlots); // Parking is created with 2 free spot of each type.
+		this.parking = new ParkingMaracana(freeSlots); // Parking is created with 2 free spot of each type.
 
 		// init car types
 		this.gasCar = new GasolineCar("GAS000");
@@ -45,9 +48,9 @@ public class ParkingTollTest {
 		this.electric50kwCar = new Electric50kwCar("ELE050");
 
 		// init the slot type
-		this.gasSlot = new Slot(1, CarType.GASOLINE);
-		this.gasSlot = new Slot(2, CarType.GASOLINE);
-		this.gasSlot = new Slot(1, CarType.GASOLINE);
+		this.gasSlot = new SlotMaracana(1, CarType.GASOLINE);
+		this.gasSlot = new SlotMaracana(2, CarType.GASOLINE);
+		this.gasSlot = new SlotMaracana(1, CarType.GASOLINE);
 
 	}
 
@@ -55,28 +58,34 @@ public class ParkingTollTest {
 	public void findSlotTest() throws SlotOccupiedException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot gasSlot1 = this.parking.bookSlot(gasCar);
+		Reservation resMaracana1Completed = new ReservationMaracana();
+		Reservation resMaracana1Failed = new ReservationMaracana();
+		Slot gasSlot1 = this.parking.bookSlot(gasCar, resMaracana1Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
-		assertEquals(new Slot(1, CarType.GASOLINE), gasSlot1);
-		Slot gasSlot2 = this.parking.bookSlot(gasCar);
+		assertEquals(new SlotMaracana(1, CarType.GASOLINE), gasSlot1);
+		Slot gasSlot2 = this.parking.bookSlot(gasCar, resMaracana1Failed);
 		// 0 gasoline left fot the new car.
 		assertNull(gasSlot2);
 
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot elec20Slot = this.parking.bookSlot(electric20kwCar);
+		Reservation resMaracana2Completed = new ReservationMaracana();
+		Reservation resMaracana2Failed = new ReservationMaracana();
+		Slot elec20Slot = this.parking.bookSlot(electric20kwCar, resMaracana2Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
-		assertEquals(new Slot(1, CarType.ELECTRIC20KW), elec20Slot);
-		Slot elect20Slot2 = this.parking.bookSlot(electric20kwCar);
+		assertEquals(new SlotMaracana(2, CarType.ELECTRIC20KW), elec20Slot);
+		Slot elect20Slot2 = this.parking.bookSlot(electric20kwCar, resMaracana2Failed);
 		// 0 gasoline left fot the new car.
 		assertNull(elect20Slot2);
 
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot elect50Slot1 = this.parking.bookSlot(electric50kwCar);
+		Reservation resMaracana3Completed = new ReservationMaracana();
+		Reservation resMaracana3Failed = new ReservationMaracana();
+		Slot elect50Slot1 = this.parking.bookSlot(electric50kwCar, resMaracana3Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
-		assertEquals(new Slot(3, CarType.ELECTRIC50KW), elect50Slot1);
-		Slot elect50Slot2 = this.parking.bookSlot(electric50kwCar);
+		assertEquals(new SlotMaracana(3, CarType.ELECTRIC50KW), elect50Slot1);
+		Slot elect50Slot2 = this.parking.bookSlot(electric50kwCar, resMaracana3Failed);
 		// 0 gasoline left fot the new car.
 		assertNull(elect50Slot2);
 	}
@@ -85,35 +94,39 @@ public class ParkingTollTest {
 	public void releaseSlotTest() throws SlotOccupiedException, SlotNotFoundException {
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot gasSlot1 = this.parking.bookSlot(gasCar);
+		Reservation resMaracana1Completed = new ReservationMaracana();
+		Slot gasSlot1 = this.parking.bookSlot(gasCar, resMaracana1Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
 		this.parking.releaseSlot(gasSlot1);
 		// gasoline type slot is free again. Lets book it again.
-		Slot reBookedSlot = this.parking.bookSlot(gasCar);
-		assertEquals(new Slot(1, CarType.GASOLINE), reBookedSlot);
+		Slot reBookedSlot = this.parking.bookSlot(gasCar, resMaracana1Completed);
+		assertEquals(new SlotMaracana(1, CarType.GASOLINE), reBookedSlot);
 
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot elect20Slot1 = this.parking.bookSlot(electric20kwCar);
+		Reservation resMaracana2Completed = new ReservationMaracana();
+		Slot elect20Slot1 = this.parking.bookSlot(electric20kwCar, resMaracana2Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
 		this.parking.releaseSlot(elect20Slot1);
 		// gasoline type slot is free again. Lets book it again.
-		reBookedSlot = this.parking.bookSlot(electric20kwCar);
-		assertEquals(new Slot(2, CarType.ELECTRIC20KW), reBookedSlot);
+		reBookedSlot = this.parking.bookSlot(electric20kwCar, resMaracana2Completed);
+		assertEquals(new SlotMaracana(2, CarType.ELECTRIC20KW), reBookedSlot);
 
 		// 1 spot for gasoline cars, 1 spot for electric 20kw and 1 spot for electric
 		// 50kw.
-		Slot elect50Slot1 = this.parking.bookSlot(electric50kwCar);
+		Reservation resMaracana3Completed = new ReservationMaracana();
+		Slot elect50Slot1 = this.parking.bookSlot(electric50kwCar, resMaracana3Completed);
 		// expected to have a gasoline slot busy. 0 gasoline slot left
 		this.parking.releaseSlot(elect50Slot1);
 		// gasoline type slot is free again. Lets book it again.
-		reBookedSlot = this.parking.bookSlot(electric50kwCar);
-		assertEquals(new Slot(3, CarType.ELECTRIC50KW), reBookedSlot);
+		reBookedSlot = this.parking.bookSlot(electric50kwCar, resMaracana3Completed);
+		assertEquals(new SlotMaracana(3, CarType.ELECTRIC50KW), reBookedSlot);
 	}
 
 	@Test
 	public void InvoceSlot() {
-		Reservation res = new Reservation(this.gasCar, this.gasSlot);
+		Reservation res = new ReservationMaracana();
+		res.initReservation(this.gasCar, this.gasSlot);
 		// ParkingToll has fixed price strategy
 		Price expectedPrice = new Price(Double.valueOf(10), Currency.EUROS);
 		Price price = parking.calculatePrice(res);

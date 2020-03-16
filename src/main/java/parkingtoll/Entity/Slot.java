@@ -12,7 +12,7 @@ import parkingtoll.Vehicules.Parkable;
  * @author jlm
  *
  */
-public class Slot {
+public abstract class Slot {
 
 	private Integer location;
 	private String type;
@@ -34,7 +34,7 @@ public class Slot {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (o == null || getClass() != o.getClass()) {
+		if (o == null) {
 			return false;
 		}
 		Slot slot = (Slot) o;
