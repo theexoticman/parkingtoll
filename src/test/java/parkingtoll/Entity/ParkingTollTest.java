@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +38,7 @@ public class ParkingTollTest {
 
 	@Before
 	public void setup() {
-		List<Slot> freeSlots = new ArrayList<>();
+		Set<Slot> freeSlots = new HashSet<>();
 		freeSlots.addAll(Arrays.asList(new SlotMaracana(1, CarType.GASOLINE), new SlotMaracana(2, CarType.ELECTRIC20KW),
 				new SlotMaracana(3, CarType.ELECTRIC50KW)));
 
@@ -52,6 +54,16 @@ public class ParkingTollTest {
 		this.gasSlot = new SlotMaracana(2, CarType.GASOLINE);
 		this.gasSlot = new SlotMaracana(1, CarType.GASOLINE);
 
+	}
+
+	@Test
+	public void slotUnicityTest() {
+		Slot slot120 = new SlotMaracana(1, CarType.ELECTRIC20KW);
+		Slot slot150 = new SlotMaracana(1, CarType.ELECTRIC50KW);
+		Set<Slot> slots = new HashSet<Slot>();
+		slots.addAll(Arrays.asList(slot120, slot150));
+		this.parking = new ParkingMaracana(slots);
+		assertEquals(parking.getSlots().size(),1);
 	}
 
 	@Test

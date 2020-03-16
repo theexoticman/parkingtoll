@@ -46,9 +46,7 @@ public abstract class Slot {
 
 	@Override
 	public int hashCode() {
-		int result = location;
-		result += type.hashCode();
-		return result;
+		return location.hashCode();
 	}
 
 	/**

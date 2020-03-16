@@ -2,13 +2,13 @@ package parkingtoll.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import parkingtoll.Exceptions.SlotNotFoundException;
 import parkingtoll.Exceptions.SlotOccupiedException;
-import parkingtoll.PricingPolicy.FixedPrincingPolicy;
 import parkingtoll.PricingPolicy.PricingPolicy;
 import parkingtoll.Vehicules.Car;
 
@@ -31,11 +31,11 @@ import parkingtoll.Vehicules.Car;
  */
 public abstract class ParkingToll implements PricingPolicy {
 
-	private List<Slot> slots;
+	private Set<Slot> slots;
 	private List<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
-	public ParkingToll(List<Slot> freeSlots) {
+	public ParkingToll(Set<Slot> freeSlots) {
 		this.slots = freeSlots;
 		this.reservations = new ArrayList<>();
 	}
@@ -77,7 +77,7 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @throws SlotOccupiedException
 	 */
 	public void releaseSlot(Slot bookedSlot) throws SlotNotFoundException, SlotOccupiedException {
-		for (Slot slot : slots) {
+		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
 				bookedSlot.free();
 				return;
@@ -86,7 +86,7 @@ public abstract class ParkingToll implements PricingPolicy {
 		throw new SlotNotFoundException(bookedSlot.getLocation());
 	}
 
-	public List<Slot> getSlots() {
+	public Set<Slot> getSlots() {
 		return slots;
 	}
 }
