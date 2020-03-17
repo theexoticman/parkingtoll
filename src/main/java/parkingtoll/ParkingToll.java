@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
+import javax.print.DocFlavor.READER;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.HandlerBase;
@@ -31,17 +33,32 @@ import parkingtoll.PricingPolicy;
  * @author jlm
  *
  */
-public abstract class ParkingToll implements PricingPolicy {
+public abstract class ParkingToll<T> implements PricingPolicy {
 
+	private String type;
 	private Semaphore mutex;
 	private Set<Slot> slots;
 	private Set<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
-	public ParkingToll(Set<Slot> freeSlots) {
+	protected ParkingToll() {
 		this.mutex = new Semaphore(1);
-		this.slots = freeSlots;
-		this.reservations = new HashSet<>();
+	}
+
+	protected ParkingToll(Set<Slot> freeSlots, Set<Reservation> reservations) {
+		this.mutex = new Semaphore(1);
+		this.setSlots(freeSlots);
+		this.setReservations(reservations);
+	}
+
+	public static Optional<ParkingToll> builder(String type) {
+		Optional<ParkingToll> optParking = null;
+		if ("Maracana".equals(type)) {
+			optParking = Optional.of(new ParkingMaracana());
+		}
+
+		return optParking;
+
 	}
 
 	/**
@@ -56,9 +73,10 @@ public abstract class ParkingToll implements PricingPolicy {
 	 * @return Slot If available, null if no free slot for the cartype
 	 * 
 	 */
-	public Optional<Slot> bookSlot(Car newCar, Reservation reservation) throws InterruptedException {
+	public Optional<Slot> bookSlot(Car newCar) throws InterruptedException {
 		Slot freeSlot = null;
-		if (newCar == null || reservation == null) {
+		if (newCar == null) {
+			logger.error("Null parameter found.");
 			return Optional.ofNullable(freeSlot);
 		}
 
@@ -75,8 +93,7 @@ public abstract class ParkingToll implements PricingPolicy {
 				freeSlot = slot;
 				logger.info("Slot %d is booked for car type: %s", slot.getLocation(), type);
 				slot.book(newCar);
-				reservation.initReservation(newCar, slot);
-				this.reservations.add(reservation);
+				this.reservations.add(new Reservation(newCar, slot));
 			}
 		}
 		mutex.release();
@@ -92,10 +109,11 @@ public abstract class ParkingToll implements PricingPolicy {
 	 *         parking lot.
 	 * 
 	 */
-	public Boolean releaseSlot(Slot bookedSlot) {
+	public Optional<Reservation> releaseSlot(Slot bookedSlot) {
+		Optional<Reservation> optRes = null;
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
-				Optional<Reservation> optRes = getReservation(slot);
+				optRes = getReservation(slot);
 				if (optRes.isPresent()) {
 					Reservation res = optRes.get();
 					res.closeReservation();
@@ -103,11 +121,13 @@ public abstract class ParkingToll implements PricingPolicy {
 				}
 				bookedSlot.free();
 				logger.info("Slot %d has been freed.", bookedSlot.getLocation());
-				return true;
+				return optRes;
 			}
 		}
-		return false;
+		return optRes;
 	}
+
+	abstract Set<Slot> generateSlots();
 
 	/**
 	 * Given a slot, retrieve the associated reservation.
@@ -126,9 +146,23 @@ public abstract class ParkingToll implements PricingPolicy {
 	}
 
 	/**
-	 * get parking slots for testing purposed @return, set of slots.
+	 * get parking slots for testing purposed @return, get the slots.
 	 */
 	protected Set<Slot> getSlots() {
 		return slots;
+	}
+
+	/**
+	 * set parking slots for testing purposed @return, set of slots.
+	 */
+	protected void setSlots(Set<Slot> slots) {
+		this.slots = slots;
+	}
+
+	/**
+	 * set reservation for testing purposes. @return, set of slots.
+	 */
+	protected void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 }

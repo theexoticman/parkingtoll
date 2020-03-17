@@ -11,7 +11,6 @@ import parkingtoll.CarType;
 import parkingtoll.Electric20kwCar;
 import parkingtoll.GasolineCar;
 import parkingtoll.Reservation;
-import parkingtoll.ReservationMaracana;
 import parkingtoll.Slot;
 import parkingtoll.SlotMaracana;
 
@@ -41,14 +40,11 @@ public class ReservationTest {
 		Slot slotSame1 = new SlotMaracana(1, CarType.GASOLINE);
 		Slot slot2 = new SlotMaracana(2, CarType.ELECTRIC20KW);
 
-		this.res1 = new ReservationMaracana();
-		res1.initReservation(car1, slot1);
-		this.resSame1 = new ReservationMaracana();
-		resSame1.initReservation(carSame1, slotSame1);
-		this.resSameCarDifferentSlot = new ReservationMaracana();
-		resSameCarDifferentSlot.initReservation(car1, slotSame1);
-		this.resSameSlotDifferentCar = new ReservationMaracana();
-		resSameSlotDifferentCar.initReservation(car2, slot1);
+		this.res1 = new Reservation(car1, slot1);
+		this.resSame1 = new Reservation(carSame1, slotSame1);
+		this.resSameCarDifferentSlot = new Reservation(car1, slotSame1);
+
+		this.resSameSlotDifferentCar = new Reservation(car2, slot1);
 
 	}
 

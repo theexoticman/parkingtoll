@@ -1,5 +1,7 @@
 package parkingtoll;
 
+import java.util.Optional;
+
 import parkingtoll.Car;
 import parkingtoll.Price;
 import parkingtoll.Utils;
@@ -13,7 +15,7 @@ import parkingtoll.Utils;
  * @author jlm
  *
  */
-public abstract class Reservation {
+public class Reservation {
 
 	private String id;
 	private Car car;
@@ -28,18 +30,9 @@ public abstract class Reservation {
 	 * will be set to the reservation creation.
 	 * 
 	 */
-	protected Reservation() {
-	}
-
-	/**
-	 * Initialize the reservation with the car and slot associated
-	 * 
-	 * @param car,  car to be parked.
-	 * @param slot, slot assined to the car.
-	 */
-	protected void initReservation(Car car, Slot slot) {
+	protected Reservation(Car car, Slot slot) {
 		this.arrivalTime = System.nanoTime();
-		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation())).concat(String.valueOf(arrivalTime));
+		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation()));
 		this.car = car;
 		this.slot = slot;
 	}
@@ -59,7 +52,7 @@ public abstract class Reservation {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null) {
 			return false;
 		}
 		Reservation res = (Reservation) obj;
@@ -82,40 +75,35 @@ public abstract class Reservation {
 	}
 
 	/**
-	 * get reservation id 
-	 * @return, string id
+	 * get reservation id @return, string id
 	 */
 	protected String getId() {
 		return id;
 	}
 
 	/**
-	 * reservation duration in hours 
-	 * @return, long, duration
+	 * reservation duration in hours @return, long, duration
 	 */
 	protected Long getDurationHour() {
 		return durationHour;
 	}
 
 	/**
-	 * return car associated to the reservation 
-	 * @return, car, this car
+	 * return car associated to the reservation @return, car, this car
 	 */
 	protected Car getCar() {
 		return car;
 	}
 
 	/**
-	 * return slot associated to the reservation 
-	 * @return, slot, this slor
+	 * return slot associated to the reservation @return, slot, this slor
 	 */
 	protected Slot getSlot() {
 		return slot;
 	}
 
 	/**
-	 * price associated to the reservation 
-	 * @return, price instance.
+	 * price associated to the reservation @return, price instance.
 	 */
 	public Price getPrice() {
 		return price;
