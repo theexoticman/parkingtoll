@@ -19,8 +19,7 @@ import parkingtoll.SlotMaracana;
  * A Reservation is an object that is created when a Car is assigned to a Slot.
  * The arrival Date is the time in which this assigning is done. The departure
  * time is calculated when parking toll release the slot and the Car is detached
- * from the Slot. i.e. another car can book it. ======= Testing the reservation
- * testing class >>>>>>> feature/make_abstract
+ * from the Slot. i.e. another car can book it.
  * 
  * @author jlm
  *

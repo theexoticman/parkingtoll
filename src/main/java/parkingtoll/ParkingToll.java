@@ -95,12 +95,34 @@ public abstract class ParkingToll implements PricingPolicy {
 	public Boolean releaseSlot(Slot bookedSlot) {
 		for (Slot slot : this.slots) {
 			if (slot.equals(bookedSlot)) {
-				logger.info("Slot %d is free.", bookedSlot.getLocation());
+				Optional<Reservation> optRes = getReservation(slot);
+				if (optRes.isPresent()) {
+					Reservation res = optRes.get();
+					res.closeReservation();
+					logger.info("Reservation %s has been closed.", res.getId());
+				}
 				bookedSlot.free();
+				logger.info("Slot %d has been freed.", bookedSlot.getLocation());
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Given a slot, retrieve the associated reservation.
+	 * 
+	 * @param slot, reference slot
+	 * @return
+	 */
+	private Optional<Reservation> getReservation(Slot slot) {
+		Reservation matchRes = null;
+		for (Reservation res : reservations) {
+			if (slot.equals(res.getSlot())) {
+				matchRes = res;
+			}
+		}
+		return Optional.ofNullable(matchRes);
 	}
 
 	/**

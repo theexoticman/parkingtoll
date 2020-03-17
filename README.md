@@ -51,6 +51,8 @@ Maven is used to manage project dependencies and project lifecycle.
 
 slf4j is used for logging purposed. slf4j nop is used in version 1.7.28. 
 
+Logging will be done using simple SLF4J. Using Simple Logging Facade has important benefit of not imposing a logging framework to the end-user. Actually, If no slf4j binding is found on the class path, then slf4j-api will default to a no operation discarding all logging request.
+
 ### JUnit
 
 Junit is used for Unit testing as well as integration testing. Version used: 4.12
@@ -73,6 +75,3 @@ Maven Plugin maven-javadoc-plugin allows to generate the javadoc by running the 
 ```
 
 
-## Logging
-
-Logging will be done using simple SLF4J. Using Simple Logging Facade has important benefit of not imposing a logging framework to the end-user. Actually, If no slf4j binding is found on the class path, then slf4j-api will default to a no operation discarding all logging request.

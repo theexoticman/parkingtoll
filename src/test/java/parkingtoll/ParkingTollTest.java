@@ -103,8 +103,9 @@ public class ParkingTollTest {
 	public void InvoceSlot() {
 		Reservation res = new ReservationMaracana();
 		res.initReservation(this.gasCar, this.gasSlot);
+		res.setDurationHour((long) 3);
 		// ParkingToll has fixed price strategy
-		Price expectedPrice = new Price(Double.valueOf(10), Currency.EUROS);
+		Price expectedPrice = new Price(Double.valueOf(25), Currency.EUROS);
 		Price price = parking.calculatePrice(res);
 		assertEquals(expectedPrice, price);
 
