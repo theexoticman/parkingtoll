@@ -1,6 +1,6 @@
-package parkingtoll;
+package parkingtoll.business;
 
-import parkingtoll.Convertible;
+import parkingtoll.business.Convertible;
 
 /**
  * Currency Enum, defining the different types of currency. For mor currency,

@@ -1,7 +1,4 @@
-package parkingtoll;
-
-import parkingtoll.Car;
-import parkingtoll.Parkable;
+package parkingtoll.model;
 
 /**
  * Slot is a class that represents a slot in the parking Toll. It can only used
@@ -11,10 +8,10 @@ import parkingtoll.Parkable;
  * @author jlm
  *
  */
-public abstract class Slot {
+public class Slot {
 
 	private Integer location;
-	private String type;
+	private Parkable type;
 	private Car car;
 
 	/**
@@ -23,9 +20,9 @@ public abstract class Slot {
 	 * @param location, slot location and identification
 	 * @param parkable, one of a car type
 	 */
-	protected Slot(Integer location, Parkable parkable) {
+	public Slot(Integer location, Parkable parkable) {
 		this.location = location;
-		this.type = parkable.getType();
+		this.type = parkable;
 	}
 
 	/**
@@ -49,8 +46,8 @@ public abstract class Slot {
 	}
 
 	/**
-	 * Slot Id getter
-	 * @return, slot location 
+	 * Slot Id getter 
+	 * @return, slot location
 	 */
 	public Integer getLocation() {
 		return location;
@@ -61,7 +58,7 @@ public abstract class Slot {
 	 * @return, string, slot type.
 	 */
 	public String getType() {
-		return this.type;
+		return this.type.getType();
 	}
 
 	/**
@@ -75,12 +72,15 @@ public abstract class Slot {
 	/**
 	 * Set a car to this slot.
 	 * 
-	 * @param newCar, new to car park 
+	 * @param newCar, new to car park
 	 */
 	protected void book(Car newCar) {
 		this.car = newCar;
 	}
 
+	/**
+	 * set car to free. Slot is now free
+	 */
 	public void free() {
 		this.car = null;
 	}

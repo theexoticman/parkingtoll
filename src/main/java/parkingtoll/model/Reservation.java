@@ -1,8 +1,7 @@
-package parkingtoll;
+package parkingtoll.model;
 
-import parkingtoll.Car;
-import parkingtoll.Price;
-import parkingtoll.Utils;
+
+import parkingtoll.business.Price;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.
@@ -13,7 +12,7 @@ import parkingtoll.Utils;
  * @author jlm
  *
  */
-public abstract class Reservation {
+public class Reservation {
 
 	private String id;
 	private Car car;
@@ -26,20 +25,12 @@ public abstract class Reservation {
 	/**
 	 * Create the Reservation object with the car and slot associated. Arrival tim
 	 * will be set to the reservation creation.
-	 * 
+	 * @param car, a car instance of type T
+	 * @param slot, slot of same type T
 	 */
-	protected Reservation() {
-	}
-
-	/**
-	 * Initialize the reservation with the car and slot associated
-	 * 
-	 * @param car,  car to be parked.
-	 * @param slot, slot assined to the car.
-	 */
-	protected void initReservation(Car car, Slot slot) {
+	protected Reservation(Car car, Slot slot) {
 		this.arrivalTime = System.nanoTime();
-		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation())).concat(String.valueOf(arrivalTime));
+		this.id = car.getLicensePlate().concat(String.valueOf(slot.getLocation()));
 		this.car = car;
 		this.slot = slot;
 	}
@@ -59,7 +50,7 @@ public abstract class Reservation {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null) {
 			return false;
 		}
 		Reservation res = (Reservation) obj;
@@ -93,7 +84,7 @@ public abstract class Reservation {
 	 * reservation duration in hours 
 	 * @return, long, duration
 	 */
-	protected Long getDurationHour() {
+	public Long getDurationHour() {
 		return durationHour;
 	}
 
@@ -101,7 +92,7 @@ public abstract class Reservation {
 	 * return car associated to the reservation 
 	 * @return, car, this car
 	 */
-	protected Car getCar() {
+	public Car getCar() {
 		return car;
 	}
 
@@ -109,7 +100,7 @@ public abstract class Reservation {
 	 * return slot associated to the reservation 
 	 * @return, slot, this slor
 	 */
-	protected Slot getSlot() {
+	public Slot getSlot() {
 		return slot;
 	}
 
@@ -117,7 +108,7 @@ public abstract class Reservation {
 	 * price associated to the reservation 
 	 * @return, price instance.
 	 */
-	public Price getPrice() {
+	protected Price getPrice() {
 		return price;
 	}
 
@@ -126,7 +117,7 @@ public abstract class Reservation {
 	 * 
 	 * @param durationHour, hours in long representation.
 	 */
-	public void setDurationHour(Long durationHour) {
+	protected void setDurationHour(Long durationHour) {
 		this.durationHour = durationHour;
 	}
 
