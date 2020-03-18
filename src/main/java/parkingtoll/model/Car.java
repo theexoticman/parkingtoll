@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.model;
 
 /**
  * Car is an abstract class that represent different type of cars. It is defined
@@ -12,28 +12,30 @@ package parkingtoll;
 public abstract class Car {
 
 	private String licensePlate;
-	private String type;
+	private Parkable type;
 
 	/**
 	 * Main constructor
+	 * 
 	 * @param licensePlate, string car identification
-	 * @param type, cartype enum
+	 * @param type,         cartype enum
 	 */
 	public Car(String licensePlate, Parkable type) {
 		this.licensePlate = licensePlate;
-		this.type = type.getType();
+		this.type = type;
 	}
 
 	/**
 	 * Get car type,
+	 * 
 	 * @return string, car type, enum representation.
 	 */
 	protected String getType() {
-		return this.type;
+		return this.type.getType();
 	}
 
 	/**
-	 * get license plate, car identification
+	 * get license plate, car identification 
 	 * @return, string, car identification
 	 */
 	protected String getLicensePlate() {

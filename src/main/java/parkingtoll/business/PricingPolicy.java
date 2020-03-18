@@ -1,6 +1,6 @@
-package parkingtoll;
+package parkingtoll.business;
 
-import parkingtoll.Reservation;
+import parkingtoll.model.Reservation;
 
 /**
  * Princing Policy defines the methods that have to be implemented by any

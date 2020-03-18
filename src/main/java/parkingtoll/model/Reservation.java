@@ -1,10 +1,6 @@
-package parkingtoll;
+package parkingtoll.model;
 
-import java.util.Optional;
-
-import parkingtoll.Car;
-import parkingtoll.Price;
-import parkingtoll.Utils;
+import parkingtoll.business.Price;
 
 /**
  * A Reservation is an object that is created when a Car is assigned to a Slot.
@@ -28,7 +24,8 @@ public class Reservation {
 	/**
 	 * Create the Reservation object with the car and slot associated. Arrival tim
 	 * will be set to the reservation creation.
-	 * 
+	 * @param car, a car instance of type T
+	 * @param slot, slot of same type T
 	 */
 	protected Reservation(Car car, Slot slot) {
 		this.arrivalTime = System.nanoTime();
@@ -84,28 +81,28 @@ public class Reservation {
 	/**
 	 * reservation duration in hours @return, long, duration
 	 */
-	protected Long getDurationHour() {
+	public Long getDurationHour() {
 		return durationHour;
 	}
 
 	/**
 	 * return car associated to the reservation @return, car, this car
 	 */
-	protected Car getCar() {
+	public Car getCar() {
 		return car;
 	}
 
 	/**
 	 * return slot associated to the reservation @return, slot, this slor
 	 */
-	protected Slot getSlot() {
+	public Slot getSlot() {
 		return slot;
 	}
 
 	/**
 	 * price associated to the reservation @return, price instance.
 	 */
-	public Price getPrice() {
+	protected Price getPrice() {
 		return price;
 	}
 
@@ -114,7 +111,7 @@ public class Reservation {
 	 * 
 	 * @param durationHour, hours in long representation.
 	 */
-	public void setDurationHour(Long durationHour) {
+	protected void setDurationHour(Long durationHour) {
 		this.durationHour = durationHour;
 	}
 

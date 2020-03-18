@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.model;
 
 /**
  * Define all the Car that can be parked in the parking lot.

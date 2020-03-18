@@ -1,20 +1,13 @@
-package parkingtoll;
+package parkingtoll.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import javax.print.DocFlavor.READER;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.HandlerBase;
 
-import parkingtoll.Car;
-import parkingtoll.PricingPolicy;
+import parkingtoll.business.PricingPolicy;
 
 /**
  * A Parking Toll is a representation of a parking lot with a list of slots.
@@ -33,9 +26,8 @@ import parkingtoll.PricingPolicy;
  * @author jlm
  *
  */
-public abstract class ParkingToll<T> implements PricingPolicy {
+public abstract class ParkingToll implements PricingPolicy {
 
-	private String type;
 	private Semaphore mutex;
 	private Set<Slot> slots;
 	private Set<Reservation> reservations;
@@ -51,10 +43,17 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 		this.setReservations(reservations);
 	}
 
-	public static Optional<ParkingToll> builder(String type) {
+	/**
+	 * Factory pattern, to get a specific instance of a ParkingToll. Easliy
+	 * extensible for creating other parking classes.
+	 * 
+	 * @param kind, kind of parking lot 
+	 * @return, return a empty optional if the desired parking lot does not exist. otherwise return the correct instance
+	 */
+	public static Optional<ParkingToll> builder(String kind) {
 		Optional<ParkingToll> optParking = null;
-		if ("Maracana".equals(type)) {
-			optParking = Optional.of(new ParkingMaracana());
+		if ("Default".equals(kind)) {
+			optParking = Optional.of(new ParkingDefault());
 		}
 
 		return optParking;
@@ -69,7 +68,6 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 	 * having the same slot assigned.
 	 * 
 	 * @param newCar,      new car to be parked
-	 * @param reservation, reservation to be userd
 	 * @return Slot If available, null if no free slot for the cartype
 	 * 
 	 */
@@ -91,7 +89,7 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 		for (Slot slot : this.getSlots()) {
 			if ((type.equals(slot.getType())) && slot.isFree()) {
 				freeSlot = slot;
-				logger.info("Slot %d is booked for car type: %s", slot.getLocation(), type);
+				logger.info("Slot %d is booked for car : %s", slot.getLocation(), newCar.getLicensePlate());
 				slot.book(newCar);
 				this.reservations.add(new Reservation(newCar, slot));
 			}
@@ -101,8 +99,8 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 	}
 
 	/**
-	 * Release slot with set the Slot isFree parameter to true. If the @param is a
-	 * free slot. nothing happens.
+	 * Release slot set the slot isFree parameter to true. If the @param is a free
+	 * slot or not.
 	 * 
 	 * @param bookedSlot, we assume the Slot is not free.
 	 * @return true, if slot if found. return False, if slot does not exist in the
@@ -111,29 +109,31 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 	 */
 	public Optional<Reservation> releaseSlot(Slot bookedSlot) {
 		Optional<Reservation> optRes = null;
-		for (Slot slot : this.slots) {
-			if (slot.equals(bookedSlot)) {
-				optRes = getReservation(slot);
-				if (optRes.isPresent()) {
-					Reservation res = optRes.get();
-					res.closeReservation();
-					logger.info("Reservation %s has been closed.", res.getId());
-				}
-				bookedSlot.free();
-				logger.info("Slot %d has been freed.", bookedSlot.getLocation());
-				return optRes;
-			}
+		optRes = this.getReservation(bookedSlot);
+		if (optRes.isPresent()) {
+			Reservation res = optRes.get();
+			res.closeReservation();
+			logger.info("Reservation %s has been closed.", res.getId());
 		}
+		bookedSlot.free();
+		logger.info("Slot %d has been freed.", bookedSlot.getLocation());
 		return optRes;
 	}
 
+
+	/**
+	 * Every class extending from this class have to implement their own slots
+	 * type. 
+	 * @return, set of slots of the parking.
+	 */
 	abstract Set<Slot> generateSlots();
 
 	/**
 	 * Given a slot, retrieve the associated reservation.
 	 * 
 	 * @param slot, reference slot
-	 * @return
+	 * 
+	 *              @return, optional reservation object
 	 */
 	private Optional<Reservation> getReservation(Slot slot) {
 		Reservation matchRes = null;
@@ -147,20 +147,25 @@ public abstract class ParkingToll<T> implements PricingPolicy {
 
 	/**
 	 * get parking slots for testing purposed @return, get the slots.
+	 * get parking slots for testing purposed 
+	 * @return, get the slots.
 	 */
 	protected Set<Slot> getSlots() {
 		return slots;
 	}
 
 	/**
-	 * set parking slots for testing purposed @return, set of slots.
+
+	 * set parking slots for testing purposed 
+	 * @param slots, set of slots.
 	 */
 	protected void setSlots(Set<Slot> slots) {
 		this.slots = slots;
 	}
 
 	/**
-	 * set reservation for testing purposes. @return, set of slots.
+	 * set reservation for testing purposes. 
+	 * @param reservations, set the reservations.
 	 */
 	protected void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;

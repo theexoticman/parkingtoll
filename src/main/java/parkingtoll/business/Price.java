@@ -1,6 +1,6 @@
-package parkingtoll;
+package parkingtoll.business;
 
-import parkingtoll.Convertible;
+import parkingtoll.business.Convertible;
 
 /**
  * 
@@ -14,12 +14,17 @@ public class Price {
 	private Double amount;
 	private Convertible currency;
 
-	protected Price(Double amount, Convertible currency) {
+	/**
+	 * Create price object 
+	 * @param amount, numerical amount
+	 * @param currency, currency enum
+	 */
+	public Price(Double amount, Convertible currency) {
 		this.amount = amount;
 		this.currency = currency;
 	}
 
-	protected Price(Integer amount, Convertible currency) {
+	public Price(Integer amount, Convertible currency) {
 		this.amount = Double.valueOf(amount);
 		this.currency = currency;
 	}
@@ -53,18 +58,18 @@ public class Price {
 	}
 
 	/**
-	 * get Price amount
+	 * get Price amount 
 	 * @return, return amount part
 	 */
-	private Double getAmount() {
+	public Double getAmount() {
 		return this.amount;
 	}
 
 	/**
-	 * get the currency
+	 * get the currency 
 	 * @return, currency, from enum
 	 */
-	private Convertible getCurrency() {
+	public Convertible getCurrency() {
 		return this.currency;
 	}
 }

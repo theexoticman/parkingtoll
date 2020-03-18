@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.model;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,4 +1,4 @@
-package parkingtoll;
+package parkingtoll.business;
 
 /**
  * Interface implemented by Currency enum. To create enum with new currencies
