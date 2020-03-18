@@ -1,0 +1,8 @@
+title Billing Flow
+
+
+ParkingToll->PrincingPolicy: calcuateFare(Reservation)
+PrincingPolicy->Reservation: getReservationDuration()
+Reservation->PrincingPolicy: Duration
+PrincingPolicy->PrincingPolicy: Aplly business logic
+PrincingPolicy->ParkingToll: Price(amount,currency)

@@ -9,7 +9,7 @@ package parkingtoll.model;
  * @author jlm
  *
  */
-public abstract class Car {
+public class Car {
 
 	private String licensePlate;
 	private Parkable type;

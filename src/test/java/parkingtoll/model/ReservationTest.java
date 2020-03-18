@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import parkingtoll.model.Car;
 import parkingtoll.model.CarType;
-import parkingtoll.model.Electric20kwCar;
-import parkingtoll.model.GasolineCar;
 import parkingtoll.model.Reservation;
 import parkingtoll.model.Slot;
 
@@ -32,9 +30,9 @@ public class ReservationTest {
 
 	@Before
 	public void setUp() {
-		Car car1 = new GasolineCar("01XM");
-		Car carSame1 = new GasolineCar("01XM");
-		Car car2 = new Electric20kwCar("02ZN");
+		Car car1 = new Car("01XM", CarType.GASOLINE);
+		Car carSame1 = new Car("01XM", CarType.GASOLINE);
+		Car car2 = new Car("02ZN", CarType.GASOLINE);
 
 		Slot slot1 = new Slot(1, CarType.GASOLINE);
 		Slot slotSame1 = new Slot(1, CarType.GASOLINE);

@@ -16,7 +16,6 @@ import parkingtoll.business.Currency;
 import parkingtoll.business.Price;
 import parkingtoll.model.Car;
 import parkingtoll.model.CarType;
-import parkingtoll.model.GasolineCar;
 import parkingtoll.model.ParkingDefault;
 import parkingtoll.model.ParkingToll;
 import parkingtoll.model.Reservation;
@@ -49,7 +48,7 @@ public class ParkingDefaultTest {
 		this.elec20KWSlot = new Slot(2, CarType.ELECTRIC20KW);
 		this.elec50KWSlot = new Slot(3, CarType.ELECTRIC50KW);
 		// init cat
-		this.gasCar = new GasolineCar("01XGMC");
+		this.gasCar = new Car("01XGMC",CarType.GASOLINE);
 
 	}
 

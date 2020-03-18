@@ -1,0 +1,8 @@
+title Release Slot Flow
+
+
+ParkingDefault->ParkingToll: releaseSlot(Slot)
+ParkingToll -> Slot: freeSlot()
+ParkingToll -> ParkingToll:getReservation(Slot)
+ParkingToll -> Reservation: closeReservationi()
+ParkingToll -> ParkingDefault: Closed Reservation

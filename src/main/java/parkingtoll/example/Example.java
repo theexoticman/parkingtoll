@@ -6,8 +6,8 @@ import parkingtoll.business.Price;
 import parkingtoll.model.ParkingDefault;
 import parkingtoll.model.ParkingToll;
 import parkingtoll.model.Car;
+import parkingtoll.model.CarType;
 import parkingtoll.model.Slot;
-import parkingtoll.model.GasolineCar;
 import parkingtoll.model.Reservation;
 
 public class Example {
@@ -17,7 +17,7 @@ public class Example {
 		ParkingToll parking = new ParkingDefault();
 
 		// new car to be parked
-		Car gasolineCar = new GasolineCar("LSN0908");
+		Car gasolineCar = new Car("LSN0908", CarType.GASOLINE);
 
 		// Car parked in slot
 		Optional<Slot> slot = parking.bookSlot(gasolineCar);

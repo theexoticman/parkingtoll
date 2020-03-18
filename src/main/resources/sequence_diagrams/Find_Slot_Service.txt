@@ -1,0 +1,17 @@
+title Find Slot Flow
+
+ParkingDefault->ParkingToll:bookSlot(Car)
+opt for slot in slot list
+ParkingToll -> Slot: isFree()
+ParkingToll -> Slot:  getType()
+
+alt Slot available and Same type
+Slot -> ParkingToll:true
+ParkingToll->ParkingDefault:Optional<Slot> with slot
+end 
+
+alt No slot available in of car type
+Slot -> ParkingToll:false
+ParkingToll->ParkingDefault:Optional<Slot> empty
+end 
+end
