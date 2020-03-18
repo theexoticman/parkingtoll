@@ -94,8 +94,7 @@ Maven Plugin maven-javadoc-plugin allows to generate the javadoc by running the 
 ```
 
 ## Examples
-In this section we will see how to use the API via API examples and extension capabilities.
-Also, feel free to refer to the test folder for more details. [`src/test/java` directory][tests]
+In this section we will see how to use the API via API example. please refer to the example package.
 
 ### 1 - Initialization
 Use the ParkinToll to generate a parking lot and the a Car you want to park. For instance, one can use the ParkingToll Maracana and a Gasoline Car as is follows:
@@ -144,7 +143,7 @@ run the following command:
 ```bash
 ./mvnw clean install
 ```
-You'll have a .jar file called parkingtoll-[VERSION]-SNAPSHOT-javadoc.jar, depending on your version of the library.
+You'll have a .jar file called parkingtoll-[VERSION].jar, depending on your version of the library.
 
-Import and reference the parkingtoll directory in your project For example in Eclipse: right mouse on your project -> Properties -> Java Build Path -> Projects -> Add External jar ->'parkingtoll'
+Import and reference the parkingtoll directory in your project For example in Eclipse: right mouse on your project -> Properties -> Java Build Path -> Projects -> Add External jar ->'parkingtoll-[VERSION].jar'
 

@@ -25,7 +25,7 @@ public class ParkingDefault extends ParkingToll implements AfinePrincingPolicy {
 	/**
 	 * Default parking instance, it generates the list of parking slots that will be available.
 	 */
-	protected ParkingDefault() {
+	public ParkingDefault() {
 		super();
 		Set<Slot> freeSlots = generateSlots();
 		super.setReservations(new HashSet<Reservation>());

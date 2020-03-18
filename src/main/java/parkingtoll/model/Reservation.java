@@ -40,7 +40,7 @@ public class Reservation {
 	 */
 	protected void closeReservation() {
 		this.departureTime = System.nanoTime();
-		this.setDurationHour(Utils.getElapsedHours(this.arrivalTime, this.departureTime));
+		this.setDurationHour(Utils.getElapsedHours(this.getArrivalTime(), this.getDepartureTime()));
 	}
 
 	/**
@@ -113,6 +113,22 @@ public class Reservation {
 	 */
 	protected void setDurationHour(Long durationHour) {
 		this.durationHour = durationHour;
+	}
+
+	/**
+	 * Get the tim where the reservation has started
+	 * @return long, representing the time from System.nanotime()
+	 */
+	public Long getArrivalTime() {
+		return arrivalTime;
+	}
+	
+	/**
+	 * Get the time when reservation got closed. System.nanotime()
+	 * @return long,
+	 */
+	public Long getDepartureTime() {
+		return departureTime;
 	}
 
 }

@@ -30,7 +30,7 @@ public abstract class Car {
 	 * 
 	 * @return string, car type, enum representation.
 	 */
-	protected String getType() {
+	public String getType() {
 		return this.type.getType();
 	}
 
@@ -38,7 +38,7 @@ public abstract class Car {
 	 * get license plate, car identification 
 	 * @return, string, car identification
 	 */
-	protected String getLicensePlate() {
+	public String getLicensePlate() {
 		return this.licensePlate;
 	}
 

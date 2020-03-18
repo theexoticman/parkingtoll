@@ -33,7 +33,7 @@ public abstract class ParkingToll implements PricingPolicy {
 	private Set<Reservation> reservations;
 	private final Logger logger = LoggerFactory.getLogger(ParkingToll.class);
 
-	protected ParkingToll() {
+	public ParkingToll() {
 		this.mutex = new Semaphore(1);
 	}
 
